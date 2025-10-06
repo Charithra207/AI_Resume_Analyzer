@@ -1,0 +1,23 @@
+[
+  {
+    "Email": "charithra@gmail.com",
+    "Phone": "9876543210",
+    "Skills": [
+      "Java",
+      "Python"
+    ],
+    "Experience (Years)": 0,
+    "Career Gap": 0
+  },
+  {
+    "Email": "rahul.kumar@example.com",
+    "Phone": "9123456789",
+    "Skills": [
+      "C++",
+      "HTML",
+      "CSS"
+    ],
+    "Experience (Years)": 0,
+    "Career Gap": 0
+  }
+]
