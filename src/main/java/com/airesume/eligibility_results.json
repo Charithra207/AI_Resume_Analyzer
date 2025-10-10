@@ -1,0 +1,62 @@
+[
+  {
+    "jobId": "J01",
+    "title": "Software Engineer",
+    "candidates": [
+      {
+        "name": "",
+        "email": "charithra@gmail.com",
+        "matchedSkills": [
+          "Java"
+        ],
+        "matchedCount": 1,
+        "requiredCount": 3,
+        "experienceYears": 0.0,
+        "careerGapYears": 0.0,
+        "meetsExperience": false,
+        "scorePer": 23.33
+      },
+      {
+        "name": "",
+        "email": "rahul.kumar@example.com",
+        "matchedSkills": [],
+        "matchedCount": 0,
+        "requiredCount": 3,
+        "experienceYears": 0.0,
+        "careerGapYears": 0.0,
+        "meetsExperience": false,
+        "scorePer": 0.0
+      }
+    ]
+  },
+  {
+    "jobId": "J02",
+    "title": "Data Analyst",
+    "candidates": [
+      {
+        "name": "",
+        "email": "charithra@gmail.com",
+        "matchedSkills": [
+          "Python"
+        ],
+        "matchedCount": 1,
+        "requiredCount": 3,
+        "experienceYears": 0.0,
+        "careerGapYears": 0.0,
+        "meetsExperience": false,
+        "scorePer": 28.33
+      },
+      {
+        "name": "",
+        "email": "rahul.kumar@example.com",
+        "matchedSkills": [],
+        "matchedCount": 0,
+        "requiredCount": 3,
+        "experienceYears": 0.0,
+        "careerGapYears": 0.0,
+        "meetsExperience": false,
+        "scorePer": 0.0
+      }
+    ]
+  }
+]
