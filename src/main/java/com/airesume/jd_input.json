@@ -1,14 +1,14 @@
 [
   {
-    "jobId": "J01",
-    "title": "Software Engineer",
-    "requiredSkills": ["Java", "Spring", "SQL"],
+    "jobId": "J101",
+    "title": "Java Developer",
+    "requiredSkills": ["Java", "Spring Boot", "SQL"],
     "minExperience": 2
   },
   {
-    "jobId": "J02",
-    "title": "Data Analyst",
-    "requiredSkills": ["Python", "Excel", "SQL"],
+    "jobId": "J102",
+    "title": "Python Developer",
+    "requiredSkills": ["Python", "Django", "SQL"],
     "minExperience": 1
   }
 ]

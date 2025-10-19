@@ -1,23 +1,44 @@
 [
   {
+    "Name": "Charithra Gowda",
     "Email": "charithra@gmail.com",
-    "Phone": "9876543210",
-    "Skills": [
-      "Java",
-      "Python"
-    ],
-    "Experience (Years)": 0,
+    "Skills": ["Java", "Python", "DBMS", "HTML"],
+    "Experience (Years)": 2,
     "Career Gap": 0
   },
   {
+    "Name": "Rahul Kumar",
     "Email": "rahul.kumar@example.com",
-    "Phone": "9123456789",
-    "Skills": [
-      "C++",
-      "HTML",
-      "CSS"
-    ],
-    "Experience (Years)": 0,
+    "Skills": ["C++", "HTML", "CSS", "JavaScript"],
+    "Experience (Years)": 3,
+    "Career Gap": 1
+  },
+  {
+    "Name": "Sneha Reddy",
+    "Email": "sneha.reddy@example.com",
+    "Skills": ["Python", "Machine Learning", "SQL", "Java"],
+    "Experience (Years)": 4,
     "Career Gap": 0
+  },
+  {
+    "Name": "Arjun Mehta",
+    "Email": "arjun.mehta@example.com",
+    "Skills": ["React", "Node.js", "HTML", "CSS"],
+    "Experience (Years)": 1,
+    "Career Gap": 0
+  },
+  {
+    "Name": "Meera Singh",
+    "Email": "meera.singh@example.com",
+    "Skills": ["Java", "Spring Boot", "SQL"],
+    "Experience (Years)": 5,
+    "Career Gap": 0
+  },
+  {
+    "Name": "Vikram Das",
+    "Email": "vikram.das@example.com",
+    "Skills": ["Python", "Django", "Flask", "SQL"],
+    "Experience (Years)": 2,
+    "Career Gap": 1
   }
 ]

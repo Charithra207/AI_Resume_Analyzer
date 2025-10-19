@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Vikram Das",
+    "email": "vikram.das@example.com",
+    "matchedCount": 3,
+    "requiredCount": 3,
+    "experienceYears": 2.0,
+    "careerGapYears": 1.0,
+    "meetsExperience": true,
+    "scorePer": 97.0,
+    "rank": 1,
+    "tc": 2
+  },
+  {
+    "name": "Sneha Reddy",
+    "email": "sneha.reddy@example.com",
+    "matchedCount": 2,
+    "requiredCount": 3,
+    "experienceYears": 4.0,
+    "careerGapYears": 0.0,
+    "meetsExperience": true,
+    "scorePer": 66.67,
+    "rank": 2,
+    "tc": 2
+  }
+]
