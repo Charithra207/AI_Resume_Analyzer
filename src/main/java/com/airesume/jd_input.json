@@ -3,12 +3,14 @@
     "jobId": "J101",
     "title": "Java Developer",
     "requiredSkills": ["Java", "Spring Boot", "SQL"],
-    "minExperience": 2
+    "minExperience": 2,
+    "description": "We are looking for a young and energetic Java developer who can lead a team."
   },
   {
     "jobId": "J102",
     "title": "Python Developer",
     "requiredSkills": ["Python", "Django", "SQL"],
-    "minExperience": 1
+    "minExperience": 1,
+    "description": "Looking for experienced software engineer with knowledge in AI."
   }
 ]

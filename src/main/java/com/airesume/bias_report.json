@@ -1,0 +1,54 @@
+[
+  {
+    "source": "jd_input.json",
+    "jobId": "N/A",
+    "title": "Java Developer",
+    "biasDetected": [
+      "young",
+      "energetic"
+    ],
+    "severity": "Medium"
+  },
+  {
+    "source": "analysis_dup.json",
+    "name": "Charithra Gowda",
+    "biasDetected": [
+      "young",
+      "energetic"
+    ],
+    "severity": "Low"
+  },
+  {
+    "source": "analysis_dup.json",
+    "name": "Rahul Kumar",
+    "biasDetected": [
+      "female",
+      "male"
+    ],
+    "severity": "Low"
+  },
+  {
+    "source": "analysis_dup.json",
+    "name": "Sneha Reddy",
+    "biasDetected": [
+      "mature"
+    ],
+    "severity": "Low"
+  },
+  {
+    "source": "analysis_dup.json",
+    "name": "Arjun Mehta",
+    "biasDetected": [
+      "youthful"
+    ],
+    "severity": "Low"
+  },
+  {
+    "source": "analysis_dup.json",
+    "name": "Vikram Das",
+    "biasDetected": [
+      "aggressive"
+    ],
+    "severity": "Low"
+  }
+]
