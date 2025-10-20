@@ -1,0 +1,94 @@
+[
+  {
+    "name": "Charithra Gowda",
+    "jobTitle": "Java Developer",
+    "missingSkills": [
+      "Spring Boot",
+      "SQL"
+    ]
+  },
+  {
+    "name": "Charithra Gowda",
+    "jobTitle": "Python Developer",
+    "missingSkills": [
+      "Django",
+      "SQL"
+    ]
+  },
+  {
+    "name": "Rahul Kumar",
+    "jobTitle": "Java Developer",
+    "missingSkills": [
+      "Java",
+      "Spring Boot",
+      "SQL"
+    ]
+  },
+  {
+    "name": "Rahul Kumar",
+    "jobTitle": "Python Developer",
+    "missingSkills": [
+      "Python",
+      "Django",
+      "SQL"
+    ]
+  },
+  {
+    "name": "Sneha Reddy",
+    "jobTitle": "Java Developer",
+    "missingSkills": [
+      "Spring Boot"
+    ]
+  },
+  {
+    "name": "Sneha Reddy",
+    "jobTitle": "Python Developer",
+    "missingSkills": [
+      "Django"
+    ]
+  },
+  {
+    "name": "Arjun Mehta",
+    "jobTitle": "Java Developer",
+    "missingSkills": [
+      "Java",
+      "Spring Boot",
+      "SQL"
+    ]
+  },
+  {
+    "name": "Arjun Mehta",
+    "jobTitle": "Python Developer",
+    "missingSkills": [
+      "Python",
+      "Django",
+      "SQL"
+    ]
+  },
+  {
+    "name": "Meera Singh",
+    "jobTitle": "Java Developer",
+    "missingSkills": []
+  },
+  {
+    "name": "Meera Singh",
+    "jobTitle": "Python Developer",
+    "missingSkills": [
+      "Python",
+      "Django"
+    ]
+  },
+  {
+    "name": "Vikram Das",
+    "jobTitle": "Java Developer",
+    "missingSkills": [
+      "Java",
+      "Spring Boot"
+    ]
+  },
+  {
+    "name": "Vikram Das",
+    "jobTitle": "Python Developer",
+    "missingSkills": []
+  }
+]
