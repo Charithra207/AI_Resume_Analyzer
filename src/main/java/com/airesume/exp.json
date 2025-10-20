@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Charithra Gowda",
+    "expTime": [
+      {
+        "company": "ABC Tech",
+        "role": "Intern",
+        "years": 0.5
+      },
+      {
+        "company": "XYZ Solutions",
+        "role": "Backend Developer",
+        "years": 1.5
+      }
+    ]
+  },
+  {
+    "name": "Rahul Kumar",
+    "expTime": [
+      {
+        "company": "Webify Labs",
+        "role": "Frontend Dev",
+        "years": 2.0
+      },
+      {
+        "company": "Creative Studio",
+        "role": "UI Engineer",
+        "years": 1.0
+      }
+    ]
+  },
+  {
+    "name": "Sneha Reddy",
+    "expTime": [
+      {
+        "company": "TechMind",
+        "role": "ML Intern",
+        "years": 1.0
+      },
+      {
+        "company": "DataVista",
+        "role": "ML Engineer",
+        "years": 3.0
+      }
+    ]
+  },
+  {
+    "name": "Arjun Mehta",
+    "expTime": [
+      {
+        "company": "StartNova",
+        "role": "Frontend Dev",
+        "years": 1.0
+      }
+    ]
+  },
+  {
+    "name": "Meera Singh",
+    "expTime": [
+      {
+        "company": "FinServe",
+        "role": "Junior Dev",
+        "years": 2.0
+      },
+      {
+        "company": "TechBloom",
+        "role": "Senior Java Developer",
+        "years": 3.0
+      }
+    ]
+  },
+  {
+    "name": "Vikram Das",
+    "expTime": [
+      {
+        "company": "CodeAxis",
+        "role": "Backend Developer",
+        "years": 2.0
+      }
+    ]
+  }
+]
