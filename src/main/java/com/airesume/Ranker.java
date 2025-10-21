@@ -80,7 +80,7 @@ public class Ranker{
     static class CdResult{
         String name;
         String email;
-        List<String> matchSk;
+        List<String> matchedSkills;
         int matchedCount;
         int requiredCount;
         double experienceYears;

@@ -8,7 +8,7 @@ import java.util.*;
 public class BiasDetector{
     private static final List<String> biasWords = Arrays.asList("young","energetic","dominant","aggressive","female","male","girls only","boys only","youthful","mature","manpower");
     public static void main(String[] args){
-        detectBias("jd_input.json", "analysis_dup.json", "bias_report.json");
+        detectBias("jd_input.json", "analysis_output.json", "bias_report.json");
     }
     public static void detectBias(String jdFile,String analysisFile,String opFile){
         List<Map<String,Object>> biasReports = new ArrayList<>();

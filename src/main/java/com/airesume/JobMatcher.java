@@ -58,7 +58,7 @@ public class JobMatcher{
         else if(skillsObj!=null){
             candiSk.add(skillsObj.toString().trim().toLowerCase());
         }
-        double expYears=parseNumber(resume.get("Experience (Years)"));
+        double expYears=parseNumber(resume.get("Total Experience Years"));
         double gap=parseNumber(resume.get("Career Gap"));
         List<String> required=job.requiredSkills!=null?job.requiredSkills:Collections.emptyList();
         int reqCount=required.size();
@@ -124,7 +124,6 @@ public class JobMatcher{
             return Collections.emptyList();
         }
     }
-
     private static void writeResults(Object data, String filePath) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try (FileWriter writer = new FileWriter(filePath)) {
@@ -133,11 +132,9 @@ public class JobMatcher{
             System.out.println("Error writing results: " + e.getMessage());
         }
     }
-
     private static String safeString(Object o) {
-        return o == null ? "" : o.toString();
+        return o== null ? "":o.toString();
     }
-
     private static double parseNumber(Object o) {
         if (o == null) return 0.0;
         if (o instanceof Number) return ((Number) o).doubleValue();
@@ -147,14 +144,12 @@ public class JobMatcher{
             return 0.0;
         }
     }
-
     static class Job {
         String jobId;
         String title;
         List<String> requiredSkills;
         int minExperience;
     }
-
     static class CandidateResult {
         String name;
         String email;
@@ -166,7 +161,6 @@ public class JobMatcher{
         boolean meetsExperience;
         double scorePer;
     }
-
     static class JobResults{
         String jobId;
         String title;

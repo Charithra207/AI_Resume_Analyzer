@@ -155,7 +155,7 @@ public class RegexAnalyzer{
                 yrs+= ((Number)yrsObj).doubleValue();
         }
         result.put("Experience",extractExperience(resumeText));
-        result.put("Total Experience",Math.round(yrs*10.0)/10.0);
+        result.put("Total Experience Years",Math.round(yrs*10.0)/10.0);
         result.put("Career Gap",extractCareerGap(resumeText));
         result.put("Summary",extractSummary(resumeText));
         return result;

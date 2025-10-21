@@ -34,7 +34,7 @@ public class SkillGap{
             try(Writer writer= new FileWriter("skill_gap.json")){
                 new GsonBuilder().setPrettyPrinting().create().toJson(op,writer);
             }
-            System.out.println("skill_gap_.json generated successfully!");
+            System.out.println("skill_gap.json generated successfully!");
             } 
             catch(Exception e){
             System.out.println("Error: "+e.getMessage());

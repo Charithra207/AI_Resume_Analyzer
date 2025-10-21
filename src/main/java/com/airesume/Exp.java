@@ -6,7 +6,7 @@ import java.lang.reflect.Type;
 import java.util.*;
 public class Exp {
     public static void main(String[] args){
-        expTime("analysis_dup.json","exp.json");
+        expTime("analysis_output.json","exp.json");
     }
     public static void expTime(String ipFile,String opFile){
         List<Map<String,Object>>analysis =readFile(ipFile);
@@ -35,6 +35,8 @@ public class Exp {
                 Map<String,Object> exp= new LinkedHashMap<>();
                 exp.put("name",name);
                 exp.put("expTime",expList);
+                Object ty= cd.getOrDefault("Total Experience Years", 0);
+                exp.put("totalYears",ty);
                 op.add(exp);
             }
         }
@@ -51,7 +53,7 @@ public class Exp {
                     result.put("company",expMap.getOrDefault("company", "Unknown"));
                     result.put("role", expMap.getOrDefault("role", "Unknown"));
                     result.put("years", expMap.getOrDefault("years", 0));
-                    expList.add(result);
+                    expList.add(result);                    
                 }
             }
         }
