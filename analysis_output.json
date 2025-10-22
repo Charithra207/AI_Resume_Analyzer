@@ -1,6 +1,6 @@
 [
   {
-    "Name": "Name",
+    "Name": "Aarav Patel",
     "Email": "aarav.patel@gmail.com",
     "Phone": "9876543210",
     "Gender": "Not Specified",
@@ -14,16 +14,21 @@
     "Job Role": "Developer",
     "Experience": [
       {
-        "company": "Unknown",
-        "role": "General Experience Mentioned",
-        "years": 0
+        "company": "Education",
+        "role": "Developer",
+        "years": 0.0
+      },
+      {
+        "company": "TechNova as Backend Developer",
+        "role": "Unknown",
+        "years": 2.0
       }
     ],
-    "Total Experience Years": 0.0,
+    "Total Experience Years": 2.0,
     "Career Gap": 0
   },
   {
-    "Name": "Name",
+    "Name": "Isha Sharma",
     "Email": "isha.sharma@gmail.com",
     "Phone": "9876501234",
     "Gender": "Not Specified",
@@ -37,16 +42,26 @@
     "Job Role": "Engineer",
     "Experience": [
       {
-        "company": "Unknown",
-        "role": "General Experience Mentioned",
-        "years": 0
+        "company": "Education",
+        "role": "Engineer",
+        "years": 0.0
+      },
+      {
+        "company": "ML Engineer",
+        "role": "Unknown",
+        "years": 0.0
+      },
+      {
+        "company": "DataMind as ML Engineer",
+        "role": "Unknown",
+        "years": 1.5
       }
     ],
-    "Total Experience Years": 0.0,
+    "Total Experience Years": 1.5,
     "Career Gap": 0
   },
   {
-    "Name": "Name",
+    "Name": "Rahul Mehta",
     "Email": "rahul.mehta@gmail.com",
     "Phone": "9856734210",
     "Gender": "Not Specified",
@@ -61,16 +76,31 @@
     "Job Role": "Developer",
     "Experience": [
       {
+        "company": "Education",
+        "role": "Developer",
+        "years": 0.0
+      },
+      {
+        "company": "Information Technology",
+        "role": "Unknown",
+        "years": 0.0
+      },
+      {
         "company": "WebCrafters as Fron",
         "role": "Unknown",
         "years": 10.0
+      },
+      {
+        "company": "WebCrafters as Frontend Developer",
+        "role": "Unknown",
+        "years": 3.0
       }
     ],
-    "Total Experience Years": 10.0,
+    "Total Experience Years": 13.0,
     "Career Gap": 0
   },
   {
-    "Name": "Name",
+    "Name": "Sneha Iyer",
     "Email": "sneha.iyer@gmail.com",
     "Phone": "9823418765",
     "Gender": "Not Specified",
@@ -83,16 +113,31 @@
     "Job Role": "Analyst",
     "Experience": [
       {
-        "company": "Unknown",
-        "role": "General Experience Mentioned",
-        "years": 0
+        "company": "Education",
+        "role": "Analyst",
+        "years": 0.0
+      },
+      {
+        "company": "Insight Analytics",
+        "role": "Unknown",
+        "years": 0.0
+      },
+      {
+        "company": "Data Analyst",
+        "role": "Unknown",
+        "years": 0.0
+      },
+      {
+        "company": "Insight Analytics as Data Analyst",
+        "role": "Unknown",
+        "years": 2.5
       }
     ],
-    "Total Experience Years": 0.0,
+    "Total Experience Years": 2.5,
     "Career Gap": 0
   },
   {
-    "Name": "Name",
+    "Name": "Karan Verma",
     "Email": "karan.verma@gmail.com",
     "Phone": "9871209988",
     "Gender": "Not Specified",
@@ -101,16 +146,26 @@
     "Job Role": "Engineer",
     "Experience": [
       {
-        "company": "Unknown",
-        "role": "General Experience Mentioned",
-        "years": 0
+        "company": "Education",
+        "role": "Engineer",
+        "years": 0.0
+      },
+      {
+        "company": "Embedded Engineer",
+        "role": "Unknown",
+        "years": 0.0
+      },
+      {
+        "company": "ElectroBotics as Embedded Engineer",
+        "role": "Unknown",
+        "years": 1.0
       }
     ],
-    "Total Experience Years": 0.0,
+    "Total Experience Years": 1.0,
     "Career Gap": 0
   },
   {
-    "Name": "Name",
+    "Name": "Ananya Rao",
     "Email": "ananya.rao@gmail.com",
     "Phone": "9812345678",
     "Gender": "Not Specified",
@@ -122,9 +177,9 @@
     "Job Role": "Not Specified",
     "Experience": [
       {
-        "company": "Unknown",
-        "role": "General Experience Mentioned",
-        "years": 0
+        "company": "Education",
+        "role": "Unknown",
+        "years": 0.0
       }
     ],
     "Total Experience Years": 0.0,

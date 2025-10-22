@@ -2,18 +2,33 @@ package com.airesume;
 import java.util.*;
 import java.util.regex.*;
 public class RegexAnalyzer{    
-    private static final Map<String, Double> wordToNum= Map.ofEntries(
-        Map.entry("one", 1.0),Map.entry("two", 2.0),Map.entry("three", 3.0),
-        Map.entry("four", 4.0),Map.entry("five", 5.0),Map.entry("six", 6.0),
-        Map.entry("seven", 7.0),Map.entry("eight", 8.0),Map.entry("nine", 9.0),
-        Map.entry("ten", 10.0),Map.entry("eleven", 11.0),Map.entry("twelve", 12.0),
-        Map.entry("half", 0.5)
-    );
+    private static final Map<String,Double> wordToNum;
+    static {
+    wordToNum= new HashMap<>();
+    wordToNum.put("one", 1.0);
+    wordToNum.put("two", 2.0);
+    wordToNum.put("three", 3.0);
+    wordToNum.put("four", 4.0);
+    wordToNum.put("five", 5.0);
+    wordToNum.put("six", 6.0);
+    wordToNum.put("seven", 7.0);
+    wordToNum.put("eight", 8.0);
+    wordToNum.put("nine", 9.0);
+    wordToNum.put("ten", 10.0);
+    wordToNum.put("eleven", 11.0);
+    wordToNum.put("twelve", 12.0);
+    wordToNum.put("half", 0.5);
+    }
     public static String extractName(String text){
-        Pattern nameRegex= Pattern.compile("(?i)\\b([A-Z][a-z]+(?:\\s+[A-Z][a-z]+)*|[A-Z]\\.[A-Z][a-z]+|[A-Z]\\.[A-Z]\\.[A-Z][a-z]+|[A-Z][a-z]+\\s+[A-Z]\\.[A-Z][a-z]*)\\b");
+        NLPUtils.init();
+        List<String> nlpNames= NLPUtils.findPersons(text);
+        if(!nlpNames.isEmpty()) 
+            return nlpNames.get(0).trim();
+
+        Pattern nameRegex= Pattern.compile("(?im)(?:^|\\b)(?:name\\s*[:\\-]\\s*)?"+"([A-Z][A-Za-z\\.]{0,20}"+"(?:\\s+[A-Z][A-Za-z\\.]{0,20}){0,3})"+"(?=\\s*(?:$|\\n|,|\\.|\\b(?:email|phone|mobile|contact|address)\\b))");
         Matcher matcher= nameRegex.matcher(text);
         if(matcher.find())
-         return matcher.group(1);
+         return matcher.group(1).trim();
         return "Unknown";
     }
     public static String extractEmail(String text){
@@ -54,7 +69,12 @@ public class RegexAnalyzer{
         return indicators;
     }
     public static List<String> extractSkills(String text){
-        List<String> skills=new ArrayList<>();
+        NLPUtils.init();
+        Set<String> skills= new LinkedHashSet<>();
+        List<String> nlpSkills = NLPUtils.findSkills(text);
+        if(nlpSkills != null) 
+            skills.addAll(nlpSkills);
+        
         String skillsRegex="(?i)\\b("+
         "java|python|c\\+\\+|c#|javascript|typescript|html|css|react|angular|node(?:\\.js)?|" +
         "express|spring|django|flask|dotnet|php|ruby|go|swift|kotlin|" +
@@ -67,9 +87,13 @@ public class RegexAnalyzer{
         Matcher matcher = pattern.matcher(text);
         while (matcher.find()) 
             skills.add(matcher.group().trim());
-        return new ArrayList<>(new LinkedHashSet<>(skills));
+        return new ArrayList<>(skills);
     }
     public static String extractJobRole(String text){
+        NLPUtils.init();
+        List<String> nlpRoles= NLPUtils.findJobTitles(text);
+        if(nlpRoles != null && !nlpRoles.isEmpty()) 
+            return nlpRoles.get(0).trim();
         String applyRegex= "(?i)(applying for|seeking|looking for|desired role|position applied for|interested in)[:\\s-]*([A-Za-z /&]+)";
         Matcher applyMatcher= Pattern.compile(applyRegex).matcher(text);
         if(applyMatcher.find()) 
@@ -85,35 +109,54 @@ public class RegexAnalyzer{
         return "Not Specified";
     }
     public static List<Map<String,Object>> extractExperience(String text) {
-        List<Map<String,Object>> expList= new ArrayList<>();
-        String expRegex= "(?i)(?:worked|serving|employed|experience|job|role).*?(?:at|in|for|with)\\s*([A-Z][A-Za-z0-9&\\s]+)\\s*(?:as|role|position|working as)?\\s*([A-Za-z\\s]+)?\\s*(?:for)?\\s*(\\d+(?:\\.\\d+)?|one|two|three|four|five|six|seven|eight|nine|ten|half)\\s*(years?|yrs?|months?)?";
-        Pattern pattern= Pattern.compile(expRegex);
-        Matcher matcher= pattern.matcher(text);
-        while(matcher.find()){
-            Map<String,Object> exp= new LinkedHashMap<>();
-            exp.put("company",matcher.group(1).trim());
-            exp.put("role",matcher.group(2)!= null ? matcher.group(2).trim():"Unknown");
-            double yrs= 0;
-            String val=matcher.group(3);
-            if(val!= null){
-                val= val.toLowerCase();
-                if(wordToNum.containsKey(val)) yrs= wordToNum.get(val);
-                else {
-                    try{yrs= Double.parseDouble(val);}
-                    catch(Exception ignored) {}
-                }
-                String unit= matcher.group(4)!= null ? matcher.group(4).toLowerCase():"";
-                if(unit.contains("month"))
-                    yrs/= 12; 
+        NLPUtils.init();
+        List<Map<String,Object>> expList= new ArrayList<>();               
+        List<String> nlpOrgs= NLPUtils.findOrganizations(text);
+        List<String> nlpRoles= NLPUtils.findJobTitles(text);
+        List<String> nlpDates= NLPUtils.findDates(text);
+        if(nlpOrgs != null){
+            for(int i=0;i<nlpOrgs.size();i++){
+                Map<String,Object> exp= new LinkedHashMap<>();
+                String company= nlpOrgs.get(i).trim();
+                String role= (nlpRoles != null && i<nlpRoles.size()) ? nlpRoles.get(i).trim():"Unknown";
+                double years= 0.0;
+                if(nlpDates != null && i<nlpDates.size()) 
+                    years= parseDateRangeToYears(nlpDates.get(i));
+                exp.put("company",company);
+                exp.put("role",role);
+                exp.put("years",years);
+                expList.add(exp);
             }
-            exp.put("years",yrs);
+        }
+    
+        String expRegex1=  "(?i)(?:worked|serving|employed|experience|job|role).*?(?:at|in|for|with)\\s*([A-Z][A-Za-z0-9&\\s]+)\\s*(?:as|role|position|working as)?\\s*([A-Za-z\\s]+)?\\s*(?:for)?\\s*(\\d+(?:\\.\\d+)?|one|two|three|four|five|six|seven|eight|nine|ten|half)\\s*(years?|yrs?|months?)?";
+        Matcher matcher1= Pattern.compile(expRegex1).matcher(text);
+        while(matcher1.find()){
+            Map<String,Object> exp= new LinkedHashMap<>();
+            exp.put("company",matcher1.group(1).trim());
+            exp.put("role",matcher1.group(2)!= null ? matcher1.group(2).trim():"Unknown");
+            exp.put("years",parseExperienceValue(matcher1.group(3),matcher1.group(4)));
             expList.add(exp);
         }
-        String rangeRegex= "(?i)(?:worked|serving|was|employed|experience|joined).*?(?:at|in|for|with)\\s*([A-Z][A-Za-z0-9&\\s]+).*?(?:from)?\\s*(\\d{4})\\s*(?:to|-|–)\\s*(\\d{4})";
+        String expRegex2= "(?i)(?:experience|worked|serving|employed)[:\\s-]*([0-9]+(?:\\.[0-9]+)?|one|two|three|four|five|six|seven|eight|nine|ten|half)\\s*(years?|yrs?|months?)?\\s*(?:at|in|for|with)\\s*([A-Z][A-Za-z0-9&\\s]+)\\s*(?:as|role|position|working as)?\\s*([A-Za-z\\s]+)?";
+        Matcher matcher2= Pattern.compile(expRegex2).matcher(text);
+        while(matcher2.find()){
+            Map<String,Object> exp= new LinkedHashMap<>();
+            exp.put("company",matcher2.group(3).trim());
+            exp.put("role",matcher2.group(4) != null ? matcher2.group(4).trim() : "Unknown");
+            exp.put("years",parseExperienceValue(matcher2.group(1),matcher2.group(2)));
+            expList.add(exp);
+        }
+        String rangeRegex= "(?i)(?:worked|serving|was|employed|experience|joined).*?(?:at|in|for|with)\\s*([A-Z][A-Za-z0-9&\\s]+).*?(?:from)?\\s*(\\d{4})\\s*(?:to|-|_)\\s*(\\d{4})";
         Matcher range= Pattern.compile(rangeRegex).matcher(text);
         while(range.find()){
             double yrs=0.0;
-            yrs= Double.parseDouble(range.group(3))-Double.parseDouble(range.group(2));
+            try{
+                yrs= Double.parseDouble(range.group(3))-Double.parseDouble(range.group(2));
+                if(yrs<0)
+                    yrs=0;
+            }
+            catch(Exception ignored) {}
             Map<String,Object>exp =new LinkedHashMap<>();
             exp.put("company",range.group(1).trim());
             exp.put("role", "Unknown");
@@ -128,7 +171,43 @@ public class RegexAnalyzer{
                 expList.add(exp);
         }
         return expList;
-    }           
+    }  
+    private static double parseDateRangeToYears(String dateRange){
+        try{
+            String[] parts= dateRange.split("[-_]");
+            if(parts.length < 2)
+                return 0.0;
+            int startYear= extractYear(parts[0]);
+            int endYear= extractYear(parts[1]);
+            double years= endYear - startYear;
+            return years<0 ? 0 : years;
+        } 
+        catch(Exception e){ 
+            return 0.0; 
+        }
+    }
+    private static double parseExperienceValue(String value,String unit){
+        double yrs= 0.0;
+        if(value==null) 
+            return 0.0;
+        value= value.toLowerCase();
+        if(RegexAnalyzer.wordToNum.containsKey(value))
+        yrs= RegexAnalyzer.wordToNum.get(value);
+        else{
+            try{ yrs= Double.parseDouble(value); } 
+            catch(Exception ignored){}
+        }
+        if(unit != null && unit.toLowerCase().contains("month")) 
+            yrs/= 12.0;
+        return yrs;
+    }
+    private static int extractYear(String s){
+        Matcher m= Pattern.compile("(\\d{4})").matcher(s);
+        if(m.find()) 
+            return Integer.parseInt(m.group(1));
+        return 0;
+    }
+    
     public static int extractCareerGap(String text){
         double tg= 0;
         String gapRegex="(?i)(gap|career break).*?(\\d+(?:\\.\\d+)?|one|two|three|four|five|six|seven|eight|nine|ten|half)\\s*(years?|yrs?|months?|month)";        Pattern pattern=Pattern.compile(gapRegex);
@@ -150,9 +229,9 @@ public class RegexAnalyzer{
     }    
     public static Map<String,Object> analyze(String resumeText){
         if(resumeText==null || resumeText.trim().isEmpty()){
-            Map<String,Object> emptyResult= new LinkedHashMap<>();
-            emptyResult.put("Error", "Empty resume text");
-            return emptyResult;
+            Map<String,Object> empty= new LinkedHashMap<>();
+            empty.put("Error", "Empty resume text");
+            return empty;
         }
         Map<String,Object> result=new LinkedHashMap<>();
         result.put("Name",extractName(resumeText));
@@ -169,7 +248,7 @@ public class RegexAnalyzer{
             if(yrsObj instanceof Number)
                 yrs+= ((Number)yrsObj).doubleValue();
         }
-        result.put("Experience",extractExperience(resumeText));
+        result.put("Experience",expList);
         result.put("Total Experience Years",Math.round(yrs*10.0)/10.0);
         result.put("Career Gap",extractCareerGap(resumeText));
         return result;

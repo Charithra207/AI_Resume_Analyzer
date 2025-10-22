@@ -1,1 +1,19 @@
-[]
+[
+  {
+    "name": "Sneha Iyer",
+    "email": "sneha.iyer@gmail.com",
+    "matchedSkills": [
+      "SQL",
+      "Excel",
+      "Python"
+    ],
+    "matchedCount": 3,
+    "requiredCount": 4,
+    "experienceYears": 2.5,
+    "careerGapYears": 0.0,
+    "meetsExperience": true,
+    "scorePer": 75.0,
+    "rank": 1,
+    "tc": 1
+  }
+]

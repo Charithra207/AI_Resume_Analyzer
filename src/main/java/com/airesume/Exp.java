@@ -48,6 +48,7 @@ public class Exp {
         if(expObj instanceof List<?>){
             for(Object exp:(List<?>) expObj){
                 if(exp instanceof Map<?,?>){
+                    @SuppressWarnings("unchecked")
                     Map<String,Object> expMap= (Map<String,Object>) exp;
                     Map<String,Object> result= new LinkedHashMap<>();
                     result.put("company",expMap.getOrDefault("company", "Unknown"));

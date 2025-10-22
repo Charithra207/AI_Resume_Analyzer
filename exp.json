@@ -1,65 +1,120 @@
 [
   {
-    "Name": "Name",
+    "Name": "Aarav Patel",
     "expTime": [
       {
-        "company": "Unknown",
-        "role": "General Experience Mentioned",
+        "company": "Education",
+        "role": "Developer",
         "years": 0.0
+      },
+      {
+        "company": "TechNova as Backend Developer",
+        "role": "Unknown",
+        "years": 2.0
       }
     ],
-    "Total Experience Years": 0.0
+    "Total Experience Years": 2.0
   },
   {
-    "Name": "Name",
+    "Name": "Isha Sharma",
     "expTime": [
       {
-        "company": "Unknown",
-        "role": "General Experience Mentioned",
+        "company": "Education",
+        "role": "Engineer",
         "years": 0.0
+      },
+      {
+        "company": "ML Engineer",
+        "role": "Unknown",
+        "years": 0.0
+      },
+      {
+        "company": "DataMind as ML Engineer",
+        "role": "Unknown",
+        "years": 1.5
       }
     ],
-    "Total Experience Years": 0.0
+    "Total Experience Years": 1.5
   },
   {
-    "Name": "Name",
+    "Name": "Rahul Mehta",
     "expTime": [
+      {
+        "company": "Education",
+        "role": "Developer",
+        "years": 0.0
+      },
+      {
+        "company": "Information Technology",
+        "role": "Unknown",
+        "years": 0.0
+      },
       {
         "company": "WebCrafters as Fron",
         "role": "Unknown",
         "years": 10.0
+      },
+      {
+        "company": "WebCrafters as Frontend Developer",
+        "role": "Unknown",
+        "years": 3.0
       }
     ],
-    "Total Experience Years": 10.0
+    "Total Experience Years": 13.0
   },
   {
-    "Name": "Name",
+    "Name": "Sneha Iyer",
     "expTime": [
       {
-        "company": "Unknown",
-        "role": "General Experience Mentioned",
+        "company": "Education",
+        "role": "Analyst",
         "years": 0.0
-      }
-    ],
-    "Total Experience Years": 0.0
-  },
-  {
-    "Name": "Name",
-    "expTime": [
+      },
       {
-        "company": "Unknown",
-        "role": "General Experience Mentioned",
+        "company": "Insight Analytics",
+        "role": "Unknown",
         "years": 0.0
+      },
+      {
+        "company": "Data Analyst",
+        "role": "Unknown",
+        "years": 0.0
+      },
+      {
+        "company": "Insight Analytics as Data Analyst",
+        "role": "Unknown",
+        "years": 2.5
       }
     ],
-    "Total Experience Years": 0.0
+    "Total Experience Years": 2.5
   },
   {
-    "Name": "Name",
+    "Name": "Karan Verma",
     "expTime": [
       {
-        "company": "Unknown",
-        "role": "General Experience Mentioned",
+        "company": "Education",
+        "role": "Engineer",
+        "years": 0.0
+      },
+      {
+        "company": "Embedded Engineer",
+        "role": "Unknown",
+        "years": 0.0
+      },
+      {
+        "company": "ElectroBotics as Embedded Engineer",
+        "role": "Unknown",
+        "years": 1.0
+      }
+    ],
+    "Total Experience Years": 1.0
+  },
+  {
+    "Name": "Ananya Rao",
+    "expTime": [
+      {
+        "company": "Education",
+        "role": "Unknown",
         "years": 0.0
       }
     ],
