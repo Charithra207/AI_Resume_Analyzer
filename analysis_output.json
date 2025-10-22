@@ -1,0 +1,133 @@
+[
+  {
+    "Name": "Name",
+    "Email": "aarav.patel@gmail.com",
+    "Phone": "9876543210",
+    "Gender": "Not Specified",
+    "Bias Indicators": [],
+    "Skills": [
+      "Java",
+      "Spring",
+      "SQL",
+      "Git"
+    ],
+    "Job Role": "Developer",
+    "Experience": [
+      {
+        "company": "Unknown",
+        "role": "General Experience Mentioned",
+        "years": 0
+      }
+    ],
+    "Total Experience Years": 0.0,
+    "Career Gap": 0
+  },
+  {
+    "Name": "Name",
+    "Email": "isha.sharma@gmail.com",
+    "Phone": "9876501234",
+    "Gender": "Not Specified",
+    "Bias Indicators": [],
+    "Skills": [
+      "Artificial Intelligence",
+      "Python",
+      "Machine Learning",
+      "TensorFlow"
+    ],
+    "Job Role": "Engineer",
+    "Experience": [
+      {
+        "company": "Unknown",
+        "role": "General Experience Mentioned",
+        "years": 0
+      }
+    ],
+    "Total Experience Years": 0.0,
+    "Career Gap": 0
+  },
+  {
+    "Name": "Name",
+    "Email": "rahul.mehta@gmail.com",
+    "Phone": "9856734210",
+    "Gender": "Not Specified",
+    "Bias Indicators": [],
+    "Skills": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "React",
+      "Node.js"
+    ],
+    "Job Role": "Developer",
+    "Experience": [
+      {
+        "company": "WebCrafters as Fron",
+        "role": "Unknown",
+        "years": 10.0
+      }
+    ],
+    "Total Experience Years": 10.0,
+    "Career Gap": 0
+  },
+  {
+    "Name": "Name",
+    "Email": "sneha.iyer@gmail.com",
+    "Phone": "9823418765",
+    "Gender": "Not Specified",
+    "Bias Indicators": [],
+    "Skills": [
+      "SQL",
+      "Excel",
+      "Python"
+    ],
+    "Job Role": "Analyst",
+    "Experience": [
+      {
+        "company": "Unknown",
+        "role": "General Experience Mentioned",
+        "years": 0
+      }
+    ],
+    "Total Experience Years": 0.0,
+    "Career Gap": 0
+  },
+  {
+    "Name": "Name",
+    "Email": "karan.verma@gmail.com",
+    "Phone": "9871209988",
+    "Gender": "Not Specified",
+    "Bias Indicators": [],
+    "Skills": [],
+    "Job Role": "Engineer",
+    "Experience": [
+      {
+        "company": "Unknown",
+        "role": "General Experience Mentioned",
+        "years": 0
+      }
+    ],
+    "Total Experience Years": 0.0,
+    "Career Gap": 0
+  },
+  {
+    "Name": "Name",
+    "Email": "ananya.rao@gmail.com",
+    "Phone": "9812345678",
+    "Gender": "Not Specified",
+    "Bias Indicators": [],
+    "Skills": [
+      "SQL",
+      "Excel"
+    ],
+    "Job Role": "Not Specified",
+    "Experience": [
+      {
+        "company": "Unknown",
+        "role": "General Experience Mentioned",
+        "years": 0
+      }
+    ],
+    "Total Experience Years": 0.0,
+    "Career Gap": 0
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Name",
+    "bestRole": "Backend Developer",
+    "matchPercent": 66.67
+  },
+  {
+    "name": "Name",
+    "bestRole": "ML Engineer",
+    "matchPercent": 100.0
+  },
+  {
+    "name": "Name",
+    "bestRole": "Frontend Developer",
+    "matchPercent": 100.0
+  },
+  {
+    "name": "Name",
+    "bestRole": "Data Analyst",
+    "matchPercent": 75.0
+  },
+  {
+    "name": "Name",
+    "bestRole": "None",
+    "matchPercent": 0.0
+  },
+  {
+    "name": "Name",
+    "bestRole": "Data Analyst",
+    "matchPercent": 50.0
+  }
+]

@@ -1,0 +1,30 @@
+[
+  {
+    "id": "J001",
+    "title": "Backend Developer",
+    "description": "Looking for a backend developer with Java, Spring Boot and SQL skills. Energetic and collaborative candidates preferred.",
+    "requiredSkills": ["Java", "Spring Boot", "SQL"],
+    "minExperience": 2
+  },
+  {
+    "id": "J002",
+    "title": "ML Engineer",
+    "description": "Machine learning engineer with Python and TensorFlow experience. Young and passionate candidates only.",
+    "requiredSkills": ["Python", "Machine Learning", "TensorFlow"],
+    "minExperience": 1
+  },
+  {
+    "id": "J003",
+    "title": "Frontend Developer",
+    "description": "Frontend developer needed with HTML, CSS, JavaScript, React skills. Must be proactive.",
+    "requiredSkills": ["HTML", "CSS", "JavaScript", "React"],
+    "minExperience": 3
+  },
+  {
+    "id": "J004",
+    "title": "Data Analyst",
+    "description": "Data analyst with SQL, Excel, Python and Power BI knowledge. Should be detail-oriented.",
+    "requiredSkills": ["SQL", "Excel", "Python", "Power BI"],
+    "minExperience": 2
+  }
+]

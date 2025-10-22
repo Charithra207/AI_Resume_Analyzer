@@ -1,0 +1,20 @@
+[
+  {
+    "source": "jd_input.json",
+    "jobId": "J001",
+    "title": "Backend Developer",
+    "biasDetected": [
+      "energetic"
+    ],
+    "severity": "Medium"
+  },
+  {
+    "source": "jd_input.json",
+    "jobId": "J002",
+    "title": "ML Engineer",
+    "biasDetected": [
+      "young"
+    ],
+    "severity": "Medium"
+  }
+]
