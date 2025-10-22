@@ -10,7 +10,7 @@ public class RegexAnalyzer{
         Map.entry("half", 0.5)
     );
     public static String extractName(String text){
-        Pattern nameRegex= Pattern.compile("(?i)\\b([A-Z][A-Za-z'.-]+(?:\\s+[A-Z][A-Za-z'.-]+)+)\\b");
+        Pattern nameRegex= Pattern.compile("(?i)\\b([A-Z][a-z]+(?:\\s+[A-Z][a-z]+)*|[A-Z]\\.[A-Z][a-z]+|[A-Z]\\.[A-Z]\\.[A-Z][a-z]+|[A-Z][a-z]+\\s+[A-Z]\\.[A-Z][a-z]*)\\b");
         Matcher matcher= nameRegex.matcher(text);
         if(matcher.find())
          return matcher.group(1);
@@ -86,16 +86,22 @@ public class RegexAnalyzer{
     }
     public static List<Map<String,Object>> extractExperience(String text) {
         List<Map<String,Object>> expList= new ArrayList<>();
-        String expRegex= "(?i)(?:at|in|for|with)\\s*([A-Z][A-Za-z0-9&\\s]+)\\s*(?:as|role|position|working as)?\\s*([A-Za-z\\s]+)?\\s*(?:for)?\\s*(\\d+(?:\\.\\d+)?)\\s*(years?|yrs?|months|month)?";
+        String expRegex= "(?i)(?:worked|serving|employed|experience|job|role).*?(?:at|in|for|with)\\s*([A-Z][A-Za-z0-9&\\s]+)\\s*(?:as|role|position|working as)?\\s*([A-Za-z\\s]+)?\\s*(?:for)?\\s*(\\d+(?:\\.\\d+)?|one|two|three|four|five|six|seven|eight|nine|ten|half)\\s*(years?|yrs?|months?)?";
         Pattern pattern= Pattern.compile(expRegex);
         Matcher matcher= pattern.matcher(text);
         while(matcher.find()){
             Map<String,Object> exp= new LinkedHashMap<>();
             exp.put("company",matcher.group(1).trim());
-            exp.put("role",matcher.group(2)!= null ? matcher.group(2).trim():"N/A");
+            exp.put("role",matcher.group(2)!= null ? matcher.group(2).trim():"Unknown");
             double yrs= 0;
-            if(matcher.group(3)!= null){
-                yrs= Double.parseDouble(matcher.group(3));
+            String val=matcher.group(3);
+            if(val!= null){
+                val= val.toLowerCase();
+                if(wordToNum.containsKey(val)) yrs= wordToNum.get(val);
+                else {
+                    try{yrs= Double.parseDouble(val);}
+                    catch(Exception ignored) {}
+                }
                 String unit= matcher.group(4)!= null ? matcher.group(4).toLowerCase():"";
                 if(unit.contains("month"))
                     yrs/= 12; 
@@ -103,15 +109,23 @@ public class RegexAnalyzer{
             exp.put("years",yrs);
             expList.add(exp);
         }
-        String rangeRegex= "(?i)(?:from)?\\s*(\\d{4})\\s*(?:to|-|–)\\s*(\\d{4})";
+        String rangeRegex= "(?i)(?:worked|serving|was|employed|experience|joined).*?(?:at|in|for|with)\\s*([A-Z][A-Za-z0-9&\\s]+).*?(?:from)?\\s*(\\d{4})\\s*(?:to|-|–)\\s*(\\d{4})";
         Matcher range= Pattern.compile(rangeRegex).matcher(text);
         while(range.find()){
-            double yrs= Double.parseDouble(range.group(2))-Double.parseDouble(range.group(1));
+            double yrs=0.0;
+            yrs= Double.parseDouble(range.group(3))-Double.parseDouble(range.group(2));
             Map<String,Object>exp =new LinkedHashMap<>();
-            exp.put("company", "Unknown");
+            exp.put("company",range.group(1).trim());
             exp.put("role", "Unknown");
             exp.put("years",yrs);
             expList.add(exp);
+        }
+        if(expList.isEmpty() && text.toLowerCase().contains("experience")){
+                Map<String,Object> exp= new LinkedHashMap<>();
+                exp.put("company","Unknown");
+                exp.put("role","General Experience Mentioned");
+                exp.put("years", 0);
+                expList.add(exp);
         }
         return expList;
     }           
@@ -133,12 +147,13 @@ public class RegexAnalyzer{
             tg+= num;
         }
         return (int)Math.round(tg);
-    }
-    public static String extractSummary(String text){
-        String[] lines= text.split("\\.\\s+");
-        return lines.length>0 ? lines[0].trim():text.substring(0,Math.min(text.length(), 120));
-    }
+    }    
     public static Map<String,Object> analyze(String resumeText){
+        if(resumeText==null || resumeText.trim().isEmpty()){
+            Map<String,Object> emptyResult= new LinkedHashMap<>();
+            emptyResult.put("Error", "Empty resume text");
+            return emptyResult;
+        }
         Map<String,Object> result=new LinkedHashMap<>();
         result.put("Name",extractName(resumeText));
         result.put("Email",extractEmail(resumeText));
@@ -157,7 +172,6 @@ public class RegexAnalyzer{
         result.put("Experience",extractExperience(resumeText));
         result.put("Total Experience Years",Math.round(yrs*10.0)/10.0);
         result.put("Career Gap",extractCareerGap(resumeText));
-        result.put("Summary",extractSummary(resumeText));
         return result;
     }
 }

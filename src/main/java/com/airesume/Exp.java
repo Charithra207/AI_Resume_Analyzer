@@ -16,27 +16,27 @@ public class Exp {
         }
         List<Map<String,Object>>op =new ArrayList<>();
         for(Map<String,Object> cd:analysis){
-            String name= cd.getOrDefault("name","N/A").toString();
-            if(!cd.containsKey("experience") || cd.get("experience")==null){
+            String name= cd.getOrDefault("Name","N/A").toString();
+            if(!cd.containsKey("Experience") || cd.get("Experience")==null){
                 Map<String,Object> fresher =new LinkedHashMap<>();
-                fresher.put("name",name);
+                fresher.put("Name",name);
                 fresher.put("expTime","Fresher");
                 op.add(fresher);
                 continue;
             }
-            List<Map<String,Object>>expList = getExpList(cd.get("experience"));
+            List<Map<String,Object>>expList = getExpList(cd.get("Experience"));
             if(expList.isEmpty()){
                 Map<String,Object> fresher =new LinkedHashMap<>();
-                fresher.put("name",name);
+                fresher.put("Name",name);
                 fresher.put("expTime", "Fresher");
                 op.add(fresher);
             } 
             else{
                 Map<String,Object> exp= new LinkedHashMap<>();
-                exp.put("name",name);
+                exp.put("Name",name);
                 exp.put("expTime",expList);
                 Object ty= cd.getOrDefault("Total Experience Years", 0);
-                exp.put("totalYears",ty);
+                exp.put("Total Experience Years",ty);
                 op.add(exp);
             }
         }
@@ -47,8 +47,8 @@ public class Exp {
         List<Map<String,Object>>expList =new ArrayList<>();
         if(expObj instanceof List<?>){
             for(Object exp:(List<?>) expObj){
-                if(exp instanceof Map){
-                    Map<String,Object> expMap =(Map<String,Object>) exp;
+                if(exp instanceof Map<?,?>){
+                    Map<String,Object> expMap= (Map<String,Object>) exp;
                     Map<String,Object> result= new LinkedHashMap<>();
                     result.put("company",expMap.getOrDefault("company", "Unknown"));
                     result.put("role", expMap.getOrDefault("role", "Unknown"));
@@ -66,6 +66,7 @@ public class Exp {
             return gson.fromJson(reader,listType);
         } 
         catch(Exception e){
+            System.out.println("Error reading "+fname+": "+e.getMessage());
             return null;
         }
     }

@@ -36,7 +36,7 @@ public class BiasDetector{
                 if (!foundBias.isEmpty()) {
                     Map<String, Object> report = new LinkedHashMap<>();
                     report.put("source",analysisFile);
-                    report.put("name",res.getOrDefault("name", "N/A"));
+                    report.put("name",res.getOrDefault("Name", "N/A"));
                     report.put("biasDetected",foundBias);
                     report.put("severity",foundBias.size() > 3 ? "High" : "Low");
                     biasReports.add(report);
@@ -49,7 +49,7 @@ public class BiasDetector{
     private static List<String>findBias(String text){
         List<String>found = new ArrayList<>();
         for(String word:biasWords){
-            if(text.contains(word)){
+            if(text.contains(word.toLowerCase())){
                 found.add(word);
             }
         }

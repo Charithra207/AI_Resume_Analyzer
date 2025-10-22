@@ -1,11 +1,7 @@
 package com.airesume;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import com.google.gson.*;
+import java.io.*;
 import java.util.*;
-
 public class JsonHandler {
         public static void main(String[] args){
         String ipFilePath="resume_input.json";
@@ -17,12 +13,23 @@ public class JsonHandler {
             allResults.add(result);
         }
         writeResults(allResults,opFilePath);
+        System.out.println("All resumes analyzed successfully!\nOutput file: "+opFilePath);
     }
     public static List<String> readResumes(String filePath){
         Gson gson=new GsonBuilder().setPrettyPrinting().create();
         List<String> resumeTexts=new ArrayList<>();
         try(FileReader reader=new FileReader(filePath)){
-            resumeTexts=Arrays.asList(gson.fromJson(reader,String[].class));
+            JsonElement element= gson.fromJson(reader,JsonElement.class);
+            if(element.isJsonArray()){
+                for(JsonElement ele:element.getAsJsonArray()) {
+                    if(ele.isJsonPrimitive())
+                        resumeTexts.add(ele.getAsString());
+                    else if (ele.isJsonObject() && ele.getAsJsonObject().has("resume")) 
+                        resumeTexts.add(ele.getAsJsonObject().get("resume").getAsString());  
+                }            
+            }
+            else if(element.isJsonPrimitive())
+                resumeTexts.add(element.getAsString());
             System.out.println(resumeTexts.size()+" resumes loaded successfully from: "+filePath);
         }
         catch(IOException e){
@@ -31,6 +38,10 @@ public class JsonHandler {
         return resumeTexts;
     }
     public static void writeResults(List<Map<String,Object>> results,String filePath){
+        if(results == null || results.isEmpty()) {  
+            System.out.println("No analysis results to write.");
+            return;
+        }
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try (FileWriter writer=new FileWriter(filePath)){
             gson.toJson(results,writer);

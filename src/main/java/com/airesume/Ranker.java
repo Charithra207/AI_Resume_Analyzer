@@ -20,6 +20,10 @@ public class Ranker{
         }
         for(JobResults job:jobList){
             System.out.println("Processing Job ID: "+job.jobId);
+            if (job.candidates==null || job.candidates.isEmpty()){
+                System.out.println("No candidates for Job ID: " + job.jobId);
+                continue;
+            }
             List<CdResult> filtered = new ArrayList<>();          
             for(CdResult c:job.candidates){
                 if(c.scorePer >= MIN_SCORE && c.experienceYears >= MIN_EXP){

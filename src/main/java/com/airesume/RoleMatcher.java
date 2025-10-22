@@ -17,8 +17,8 @@ public class RoleMatcher {
         }
         List<Map<String,Object>>matches =new ArrayList<>();
         for(Map<String,Object> cd:analysisData){
-            String name= cd.getOrDefault("name",cd.getOrDefault("Name","N/A")).toString();
-            List<String> cdSkills =getList(cd.get("skills"),cd.get("Skills"));
+            String name= cd.getOrDefault("Name","N/A").toString();
+            List<String> cdSkills =getList(cd.get("Skills"));
             double bestMatch= 0.0;
             String bestRole= "None";
             for(Map<String,Object> job:jobData){
@@ -44,20 +44,21 @@ public class RoleMatcher {
             if(obj instanceof List){
                 List<?>list = (List<?>)obj;
                 List<String>result =new ArrayList<>();
-                for(Object item:list) 
-                    result.add(item.toString());
+                for(Object item:list)
+                    if(item != null)
+                        result.add(item.toString().toLowerCase());
                 return result;
             }
         }
         return new ArrayList<>();
     }
     private static double calMatch(List<String>cdSkills ,List<String>reqSkills){
-        if(reqSkills.isEmpty()) 
+        if(reqSkills.isEmpty() || cdSkills.isEmpty()) 
             return 0.0;
         int cmn= 0;
         for(String skill:reqSkills){
             for(String sk:cdSkills){
-                if(sk.equalsIgnoreCase(skill)) {
+                if(sk.equals(skill)) {
                     cmn++;
                     break;
                 }

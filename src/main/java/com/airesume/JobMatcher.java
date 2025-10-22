@@ -1,13 +1,9 @@
 package com.airesume;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.*;
-
 public class JobMatcher{
     private static final double PENALTY_MY=5.0;
     private static final double PENALTY_GY=3.0;

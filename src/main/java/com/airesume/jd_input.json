@@ -1,16 +1,38 @@
 [
   {
-    "jobId": "J101",
-    "title": "Java Developer",
-    "requiredSkills": ["Java", "Spring Boot", "SQL"],
-    "minExperience": 2,
-    "description": "We are looking for a young and energetic Java developer who can lead a team."
+    "jobid":101,
+    "title": "Java Backend Developer",
+    "required_skills": ["Java", "Spring Boot", "SQL", "REST APIs"],
+    "experience_required": 2
   },
   {
-    "jobId": "J102",
-    "title": "Python Developer",
-    "requiredSkills": ["Python", "Django", "SQL"],
-    "minExperience": 1,
-    "description": "Looking for experienced software engineer with knowledge in AI."
+    "jobid":102,
+    "title": "Machine Learning Engineer",
+    "required_skills": ["Python", "TensorFlow", "Machine Learning", "Pandas"],
+    "experience_required": 1
+  },
+  {
+    "jobid":103,
+    "title": "Frontend Developer",
+    "required_skills": ["HTML", "CSS", "React", "JavaScript"],
+    "experience_required": 2
+  },
+  {
+    "jobid":104,
+    "title": "Data Analyst",
+    "required_skills": ["Power BI", "SQL", "Excel", "Python"],
+    "experience_required": 1
+  },
+  {
+    "jobid":105,
+    "title": "Embedded Engineer",
+    "required_skills": ["C", "C++", "Arduino", "Microcontrollers"],
+    "experience_required": 1
+  },
+  {
+    "jobid":106,
+    "title": "Business Analyst Intern",
+    "required_skills": ["SQL", "Excel", "Communication"],
+    "experience_required": 0
   }
 ]
