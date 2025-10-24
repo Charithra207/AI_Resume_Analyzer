@@ -13,6 +13,9 @@
     "careerGapYears": 0.0,
     "meetsExperience": true,
     "scorePer": 75.0,
+    "combinedScore": 48.75,
+    "semanticScore": 0.0,
+    "skillOverlap": 0.0,
     "rank": 1,
     "tc": 1
   }

@@ -6,10 +6,11 @@ public class JsonHandler {
         public static void main(String[] args){
         String ipFilePath="resume_input.json";
         String opFilePath="analysis_output.json";
+        NLPUtils nlp= new NLPUtils();
         List<String> resumeTexts=readResumes(ipFilePath);
         List<Map<String,Object>> allResults=new ArrayList<>();
         for(String resumeText:resumeTexts){
-            Map<String,Object> result=RegexAnalyzer.analyze(resumeText);
+            Map<String,Object> result=RegexAnalyzer.analyze(resumeText,nlp);
             allResults.add(result);
         }
         writeResults(allResults,opFilePath);

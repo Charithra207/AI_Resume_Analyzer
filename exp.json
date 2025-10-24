@@ -3,8 +3,8 @@
     "Name": "Aarav Patel",
     "expTime": [
       {
-        "company": "Education",
-        "role": "Developer",
+        "company": "Education Backend Developer",
+        "role": "Backend Developer",
         "years": 0.0
       },
       {
@@ -20,16 +20,16 @@
     "expTime": [
       {
         "company": "Education",
-        "role": "Engineer",
+        "role": "ML Engineer",
         "years": 0.0
       },
       {
-        "company": "ML Engineer",
+        "company": "ML Engineer Unknown",
         "role": "Unknown",
         "years": 0.0
       },
       {
-        "company": "DataMind as ML Engineer",
+        "company": "ML Engineer Unknown",
         "role": "Unknown",
         "years": 1.5
       }
@@ -40,12 +40,12 @@
     "Name": "Rahul Mehta",
     "expTime": [
       {
-        "company": "Education",
-        "role": "Developer",
+        "company": "Education Frontend Developer",
+        "role": "Frontend Developer",
         "years": 0.0
       },
       {
-        "company": "Information Technology",
+        "company": "Information Technology Unknown",
         "role": "Unknown",
         "years": 0.0
       },
@@ -66,22 +66,22 @@
     "Name": "Sneha Iyer",
     "expTime": [
       {
-        "company": "Education",
-        "role": "Analyst",
+        "company": "Education Data Analyst",
+        "role": "Data Analyst",
+        "years": 0.0
+      },
+      {
+        "company": "Insight Analytics Unknown",
+        "role": "Unknown",
+        "years": 0.0
+      },
+      {
+        "company": "Data Analyst Unknown",
+        "role": "Unknown",
         "years": 0.0
       },
       {
         "company": "Insight Analytics",
-        "role": "Unknown",
-        "years": 0.0
-      },
-      {
-        "company": "Data Analyst",
-        "role": "Unknown",
-        "years": 0.0
-      },
-      {
-        "company": "Insight Analytics as Data Analyst",
         "role": "Unknown",
         "years": 2.5
       }
@@ -92,17 +92,17 @@
     "Name": "Karan Verma",
     "expTime": [
       {
-        "company": "Education",
+        "company": "Education Engineer",
         "role": "Engineer",
         "years": 0.0
       },
       {
-        "company": "Embedded Engineer",
+        "company": "Embedded Engineer Unknown",
         "role": "Unknown",
         "years": 0.0
       },
       {
-        "company": "ElectroBotics as Embedded Engineer",
+        "company": "Embedded Engineer Unknown",
         "role": "Unknown",
         "years": 1.0
       }
@@ -113,7 +113,7 @@
     "Name": "Ananya Rao",
     "expTime": [
       {
-        "company": "Education",
+        "company": "Education Unknown",
         "role": "Unknown",
         "years": 0.0
       }

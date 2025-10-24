@@ -11,11 +11,11 @@
       "SQL",
       "Git"
     ],
-    "Job Role": "Developer",
+    "Job Role": "Backend Developer",
     "Experience": [
       {
         "company": "Education",
-        "role": "Developer",
+        "role": "Backend Developer",
         "years": 0.0
       },
       {
@@ -39,11 +39,11 @@
       "Machine Learning",
       "TensorFlow"
     ],
-    "Job Role": "Engineer",
+    "Job Role": "ML Engineer",
     "Experience": [
       {
         "company": "Education",
-        "role": "Engineer",
+        "role": "ML Engineer",
         "years": 0.0
       },
       {
@@ -73,11 +73,11 @@
       "React",
       "Node.js"
     ],
-    "Job Role": "Developer",
+    "Job Role": "Frontend Developer",
     "Experience": [
       {
         "company": "Education",
-        "role": "Developer",
+        "role": "Frontend Developer",
         "years": 0.0
       },
       {
@@ -110,11 +110,11 @@
       "Excel",
       "Python"
     ],
-    "Job Role": "Analyst",
+    "Job Role": "Data Analyst",
     "Experience": [
       {
         "company": "Education",
-        "role": "Analyst",
+        "role": "Data Analyst",
         "years": 0.0
       },
       {

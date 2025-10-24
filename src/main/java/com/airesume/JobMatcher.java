@@ -13,7 +13,7 @@ public class JobMatcher{
     public static void main(String[] args){
         String analysisFile="analysis_output.json";
         String jdFile="jd_input.json";
-        String outFile="eligibility_results.json";
+        String outFile="eligibility_results.json";        
         List<Map<String,Object>> resumes=readResumes(analysisFile);
         List<Job> jobs=readJobs(jdFile);
         if(resumes.isEmpty()){
@@ -43,6 +43,8 @@ public class JobMatcher{
     private static CandidateResult calScore(Map<String,Object> resume,Job job){
         String name=safeString(resume.get("Name"));
         String email=safeString(resume.get("Email"));
+        Object resumeTextObj= resume.getOrDefault("RawText", "");
+        String resumeText= resumeTextObj.toString();
         Set<String> candiSk=new HashSet<>();
         Object skillsObj=resume.get("Skills");
         if(skillsObj instanceof List<?>){
@@ -54,6 +56,7 @@ public class JobMatcher{
         else if(skillsObj!=null){
             candiSk.add(skillsObj.toString().trim().toLowerCase());
         }
+        candiSk.addAll(NLPUtils.findSkills(resumeText).stream().map(String::toLowerCase).toList());        
         double expYears=parseNumber(resume.get("Total Experience Years"));
         double gap=parseNumber(resume.get("Career Gap"));
         List<String> required=job.requiredSkills!=null?job.requiredSkills:Collections.emptyList();
@@ -63,11 +66,18 @@ public class JobMatcher{
             if (req==null) 
                 continue;
             String nreq=req.toLowerCase().trim();
-            if(candiSk.contains(nreq))
-                matched.add(req);
+            for(String skill:candiSk){
+                if(skill.equalsIgnoreCase(nreq) || NLPUtils.findSkills(skill).contains(nreq)){
+                    matched.add(req);
+                    break;
+                }
+            }
         }
         int mCount=matched.size();
         double baseScore= reqCount==0?0.0:((double)mCount/reqCount)*100.0;
+        List<String> nlpRoles= NLPUtils.findJobTitles(resumeText);
+        if(nlpRoles.stream().anyMatch(r -> r.equalsIgnoreCase(job.title))) 
+            baseScore+= 5.0;
         double penaltyExp=0.0;
         boolean meetsExp=true;
         if(job.minExperience>0 && expYears<job.minExperience){
@@ -90,6 +100,7 @@ public class JobMatcher{
         res.scorePer=Math.round(score*100.0)/100.0;
         return res;
     }
+
     private static List<Map<String, Object>> readResumes(String filePath){
         Gson gson=new GsonBuilder().create();
         try(FileReader reader=new FileReader(filePath)){

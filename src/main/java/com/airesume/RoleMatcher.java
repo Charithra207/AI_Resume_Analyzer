@@ -18,13 +18,19 @@ public class RoleMatcher {
         List<Map<String,Object>>matches =new ArrayList<>();
         for(Map<String,Object> cd:analysisData){
             String name= cd.getOrDefault("Name","N/A").toString();
-            List<String> cdSkills =getList(cd.get("Skills"));
+            Object rawTextObj= cd.getOrDefault("RawText","");
+            String resumeText= rawTextObj.toString();
+            Set<String> cdSkills = new HashSet<>(getList(cd.get("Skills")));
+            cdSkills.addAll(NLPUtils.findSkills(resumeText).stream().map(String::toLowerCase).toList());
             double bestMatch= 0.0;
             String bestRole= "None";
             for(Map<String,Object> job:jobData){
                 String title= job.getOrDefault("title","N/A").toString();
                 List<String> reqSkills= getList(job.get("requiredSkills"),null);
-                double matchPer= calMatch(cdSkills,reqSkills);
+                double matchPer= calMatch(new ArrayList<>(cdSkills),reqSkills);
+                List<String> nlpRoles = NLPUtils.findJobTitles(resumeText);
+                if(nlpRoles.stream().anyMatch(r -> r.equalsIgnoreCase(title)))
+                 matchPer += 5.0;
                 if(matchPer > bestMatch){
                     bestMatch= matchPer;
                     bestRole= title;

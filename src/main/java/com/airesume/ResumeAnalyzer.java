@@ -1,6 +1,4 @@
 package com.airesume;
-import java.util.*; 
-import com.google.gson.*;
 public class ResumeAnalyzer {
     public static void main(String[] args){
          try {

@@ -16,6 +16,9 @@ public class SkillGap{
                     for(JsonElement s: res.getAsJsonArray("Skills")) 
                         cdSkills.add(s.getAsString().toLowerCase());
                 }
+                String resumeText= res.has("RawText") ? res.get("RawText").getAsString() : "";
+                cdSkills.addAll(NLPUtils.findSkills(resumeText)
+                    .stream().map(String::toLowerCase).toList());
                 for(JsonElement j:jobs){
                     JsonObject job= j.getAsJsonObject();
                     String jobTitle= job.get("title").getAsString();
@@ -26,6 +29,14 @@ public class SkillGap{
                             String skill=req.getAsString().toLowerCase();
                             if(!cdSkills.contains(skill))
                                 missSkills.add(req.getAsString());
+                        }
+                    }
+                    if (missSkills.isEmpty() && job.has("description")){
+                        String jdText= job.get("description").getAsString();
+                        List<String> jdSkills= NLPUtils.findSkills(jdText);
+                        for(String jdSkill:jdSkills){
+                            if (!cdSkills.contains(jdSkill.toLowerCase()))
+                                missSkills.add(jdSkill);
                         }
                     }
                     if(!missSkills.isEmpty()){

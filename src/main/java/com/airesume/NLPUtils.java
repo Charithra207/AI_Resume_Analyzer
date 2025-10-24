@@ -106,13 +106,36 @@ public class NLPUtils {
         return new ArrayList<>(skills);
     }
     public static List<String> findJobTitles(String text) {
-            init();
+        init();
         Set<String> titles= new LinkedHashSet<>();
-        String titleRegex="(?i)\\b(developer|engineer|manager|analyst|intern|designer|consultant|administrator|specialist|architect|coordinator|executive|officer|scientist|technician|advisor|lead|head)\\b";
+        String titleRegex="(?i)\\b(developer|backend developer|frontend developer|ml engineer|engineer|data analyst|manager|analyst|intern|designer|consultant|administrator|specialist|architect|coordinator|executive|officer|scientist|technician|advisor|lead|head)\\b";
         Matcher matcher= Pattern.compile(titleRegex).matcher(text);
         while(matcher.find()) 
             titles.add(matcher.group().trim());
         return new ArrayList<>(titles);
-}
-
+    }
+    public static String normalizeText(String text){
+        if(text == null) 
+            return "";
+        return text.toLowerCase().replaceAll("[^a-z0-9 ]", " ").replaceAll("\\s+", " ").trim();
+    }
+    public static boolean containsWord(String text,String word) {
+        if(text==null || word==null) 
+            return false;
+        String pattern= "\\b"+Pattern.quote(word.toLowerCase())+"\\b";
+        return Pattern.compile(pattern).matcher(text.toLowerCase()).find();
+    }
+    public static double semanticSimilarity(String text1,String text2){
+        if(text1==null || text2==null) 
+            return 0.0;
+        text1= normalizeText(text1);
+        text2= normalizeText(text2);
+        if(text1.isEmpty() || text2.isEmpty()) 
+            return 0.0;
+        Set<String> words1= new HashSet<>(Arrays.asList(text1.split(" ")));
+        Set<String> words2= new HashSet<>(Arrays.asList(text2.split(" ")));
+        Set<String> intersection = new HashSet<>(words1);
+        intersection.retainAll(words2);
+        return (double)intersection.size()/Math.sqrt(words1.size()*words2.size());
+    }
 }

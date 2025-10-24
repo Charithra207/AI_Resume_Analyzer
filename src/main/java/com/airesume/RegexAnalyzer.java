@@ -2,7 +2,7 @@ package com.airesume;
 import java.util.*;
 import java.util.regex.*;
 public class RegexAnalyzer{    
-    private static final Map<String,Double> wordToNum;
+    protected static final Map<String,Double> wordToNum;
     static {
     wordToNum= new HashMap<>();
     wordToNum.put("one", 1.0);
@@ -19,8 +19,7 @@ public class RegexAnalyzer{
     wordToNum.put("twelve", 12.0);
     wordToNum.put("half", 0.5);
     }
-    public static String extractName(String text){
-        NLPUtils.init();
+    public static String extractName(String text,NLPUtils nlp){        
         List<String> nlpNames= NLPUtils.findPersons(text);
         if(!nlpNames.isEmpty()) 
             return nlpNames.get(0).trim();
@@ -68,8 +67,7 @@ public class RegexAnalyzer{
                 indicators.add(w);
         return indicators;
     }
-    public static List<String> extractSkills(String text){
-        NLPUtils.init();
+    public static List<String> extractSkills(String text,NLPUtils nlp){        
         Set<String> skills= new LinkedHashSet<>();
         List<String> nlpSkills = NLPUtils.findSkills(text);
         if(nlpSkills != null) 
@@ -89,8 +87,7 @@ public class RegexAnalyzer{
             skills.add(matcher.group().trim());
         return new ArrayList<>(skills);
     }
-    public static String extractJobRole(String text){
-        NLPUtils.init();
+    public static String extractJobRole(String text,NLPUtils nlp){        
         List<String> nlpRoles= NLPUtils.findJobTitles(text);
         if(nlpRoles != null && !nlpRoles.isEmpty()) 
             return nlpRoles.get(0).trim();
@@ -108,8 +105,7 @@ public class RegexAnalyzer{
             return matcher.group();
         return "Not Specified";
     }
-    public static List<Map<String,Object>> extractExperience(String text) {
-        NLPUtils.init();
+    public static List<Map<String,Object>> extractExperience(String text,NLPUtils nlp) {       
         List<Map<String,Object>> expList= new ArrayList<>();               
         List<String> nlpOrgs= NLPUtils.findOrganizations(text);
         List<String> nlpRoles= NLPUtils.findJobTitles(text);
@@ -227,30 +223,41 @@ public class RegexAnalyzer{
         }
         return (int)Math.round(tg);
     }    
-    public static Map<String,Object> analyze(String resumeText){
-        if(resumeText==null || resumeText.trim().isEmpty()){
+    public static Map<String,Object> analyze(String resumeText,NLPUtils nlp){
+        Map<String,Object> result=new LinkedHashMap<>();
+        try{
+            if(resumeText==null || resumeText.trim().isEmpty()){
             Map<String,Object> empty= new LinkedHashMap<>();
             empty.put("Error", "Empty resume text");
             return empty;
+            }             
+            result.put("Name",extractName(resumeText,nlp));
+            result.put("Email",extractEmail(resumeText));
+            result.put("Phone",extractPhone(resumeText));
+            result.put("Gender",extractGender(resumeText));
+            result.put("Bias Indicators",extractBias(resumeText));
+            result.put("Skills",extractSkills(resumeText,nlp));
+            result.put("Job Role",extractJobRole(resumeText,nlp));
+            List<Map<String,Object>> expList= extractExperience(resumeText,nlp);
+            double yrs= 0.0;
+            Set<String> seenCompanies = new HashSet<>();
+            for(Map<String,Object> exp:expList){
+                String company= String.valueOf(exp.get("company")).toLowerCase();
+                if(seenCompanies.contains(company)) 
+                    continue;
+                seenCompanies.add(company);
+                Object yrsObj= exp.get("years");
+                if(yrsObj instanceof Number)
+                    yrs+= ((Number)yrsObj).doubleValue();
+            }
+            result.put("Experience",expList);
+            result.put("Total Experience Years",Math.round(yrs*10.0)/10.0);
+            result.put("Career Gap",extractCareerGap(resumeText));
         }
-        Map<String,Object> result=new LinkedHashMap<>();
-        result.put("Name",extractName(resumeText));
-        result.put("Email",extractEmail(resumeText));
-        result.put("Phone",extractPhone(resumeText));
-        result.put("Gender",extractGender(resumeText));
-        result.put("Bias Indicators",extractBias(resumeText));
-        result.put("Skills",extractSkills(resumeText));
-        result.put("Job Role",extractJobRole(resumeText));
-        List<Map<String,Object>> expList= extractExperience(resumeText);
-        double yrs= 0.0;
-        for(Map<String,Object> exp:expList){
-            Object yrsObj= exp.get("years");
-            if(yrsObj instanceof Number)
-                yrs+= ((Number)yrsObj).doubleValue();
+        catch(Exception e){
+            e.printStackTrace();
+            result.put("Error","Analysis failed: "+e.getMessage());
         }
-        result.put("Experience",expList);
-        result.put("Total Experience Years",Math.round(yrs*10.0)/10.0);
-        result.put("Career Gap",extractCareerGap(resumeText));
         return result;
     }
 }

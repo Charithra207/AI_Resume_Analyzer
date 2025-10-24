@@ -5,19 +5,27 @@ import com.google.gson.reflect.TypeToken;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
 import java.lang.reflect.Type;
 import java.util.*;
 
 public class Ranker{
     private static final double MIN_SCORE = 40.0;
     private static final double MIN_EXP = 1.0;
+    private static final double W_BASE = 0.65;
+    private static final double W_SEMANTIC = 0.20;
+    private static final double W_SKILL = 0.15;
     public static void main(String[] args){
-        String ipFile = "eligibility_results.json";
-        List<JobResults> jobList = readResults(ipFile);
+        String eligibilityFile= "eligibility_results.json";
+        String analysisFile= "analysis_output.json";
+        String jdFile= "jd_input.json";
+        List<JobResults> jobList= readResults(eligibilityFile);
         if(jobList.isEmpty()){
             System.out.println("No job data found!");
             return;
         }
+        Map<String,String> resumeTexts= loadResumeTexts(analysisFile);
+        Map<String,String> jobDescriptions= loadJobDescriptions(jdFile);
         for(JobResults job:jobList){
             System.out.println("Processing Job ID: "+job.jobId);
             if (job.candidates==null || job.candidates.isEmpty()){
@@ -27,25 +35,32 @@ public class Ranker{
             List<CdResult> filtered = new ArrayList<>();          
             for(CdResult c:job.candidates){
                 if(c.scorePer >= MIN_SCORE && c.experienceYears >= MIN_EXP){
+                    String resumeText= resumeTexts.getOrDefault(c.name.toLowerCase(), "");
+                    String jdText= jobDescriptions.getOrDefault(job.jobId,jobDescriptions.getOrDefault(job.title, ""));
+                    double semanticScore= NLPUtils.semanticSimilarity(resumeText, jdText) * 100;
+                    List<String> resumeSkills= NLPUtils.findSkills(resumeText);
+                    List<String> jdSkills= NLPUtils.findSkills(jdText);
+                    double skillOverlap= calculateSkillOverlap(resumeSkills,jdSkills);
+                    c.combinedScore= W_BASE*c.scorePer +W_SEMANTIC *semanticScore+W_SKILL *skillOverlap;
+                    c.semanticScore= Math.round(semanticScore * 100.0) / 100.0;
+                    c.skillOverlap= Math.round(skillOverlap * 100.0) / 100.0;
                     filtered.add(c);
                 }
             }
-            Collections.sort(filtered,new Comparator<CdResult>(){
-                public int compare(CdResult a,CdResult b){
-                    if(b.scorePer != a.scorePer)
-                        return Double.compare(b.scorePer,a.scorePer);
-                    else if(b.experienceYears != a.experienceYears)
-                        return Double.compare(b.experienceYears,a.experienceYears);
-                    else
-                        return Double.compare(a.careerGapYears,b.careerGapYears);
-                }
+            Collections.sort(filtered,(a, b)->{
+                if(b.combinedScore != a.combinedScore)
+                    return Double.compare(b.combinedScore,a.combinedScore);
+                else if(b.experienceYears != a.experienceYears)
+                    return Double.compare(b.experienceYears,a.experienceYears);
+                else
+                    return Double.compare(a.careerGapYears,b.careerGapYears);
+                
             });
             int total = filtered.size();
             int rank =1;
             for(CdResult c:filtered){
-                c.rank = rank;
+                c.rank = rank++;
                 c.tc = total;
-                rank++;
             }
             String opFile = "ranked_candidates_"+job.jobId+".json";
             writeResults(filtered,opFile);
@@ -67,6 +82,60 @@ public class Ranker{
             return Collections.emptyList();
         }
     }
+    private static Map<String,String> loadResumeTexts(String analysisFile){
+        Map<String,String> map= new HashMap<>();
+        try(Reader reader= new FileReader(analysisFile)){
+            Gson gson= new Gson();
+            Type listType= new TypeToken<List<Map<String, Object>>>(){}.getType();
+            List<Map<String,Object>> resumes= gson.fromJson(reader,listType);
+            if(resumes!= null){
+                for(Map<String,Object> res:resumes) {
+                    String name= safe(res.get("Name")).toLowerCase();
+                    String text= safe(res.get("RawText"));
+                    map.put(name,text);
+                }
+            }
+        } 
+        catch(Exception e){
+            System.out.println("Error loading analysis_output.json: "+e.getMessage());
+        }
+        return map;
+    }
+    private static Map<String,String> loadJobDescriptions(String jdFile){
+        Map<String,String> map= new HashMap<>();
+        try(Reader reader= new FileReader(jdFile)){
+            Gson gson= new Gson();
+            Type listType= new TypeToken<List<Map<String, Object>>>() {}.getType();
+            List<Map<String,Object>> jobs= gson.fromJson(reader,listType);
+            if(jobs!=null){
+                for(Map<String,Object> j:jobs){
+                    String id= safe(j.get("id"));
+                    String title= safe(j.get("title"));
+                    String desc= safe(j.get("description"));
+                    if(!id.isEmpty()) 
+                        map.put(id, desc);
+                    if (!title.isEmpty()) 
+                        map.put(title, desc);
+                }
+            }
+        } 
+        catch(Exception e){
+            System.out.println("Error loading jd_input.json: " + e.getMessage());
+        }
+        return map;
+    }
+    private static double calculateSkillOverlap(List<String> resumeSkills,List<String> jdSkills){
+        if(jdSkills.isEmpty()) 
+            return 0.0;
+        Set<String> rs= new HashSet<>();
+        for(String s:resumeSkills) 
+            rs.add(s.toLowerCase());
+        int common= 0;
+        for(String s:jdSkills)
+            if(rs.contains(s.toLowerCase())) 
+                common++;
+        return ((double)common/jdSkills.size())*100.0;
+    }
     private static void writeResults(Object data,String path){
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try(FileWriter writer = new FileWriter(path)){
@@ -75,6 +144,9 @@ public class Ranker{
         catch(IOException e){
             System.out.println("Error writing: "+e.getMessage());
         }
+    }
+    private static String safe(Object o){
+        return o == null ? "" : o.toString();
     }
     static class JobResults{
         String jobId;
@@ -91,6 +163,9 @@ public class Ranker{
         double careerGapYears;
         boolean meetsExperience;
         double scorePer;
+        double combinedScore;
+        double semanticScore;
+        double skillOverlap;
         int rank;
         int tc;
     }

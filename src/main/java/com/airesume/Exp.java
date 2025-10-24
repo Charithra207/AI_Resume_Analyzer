@@ -34,8 +34,17 @@ public class Exp {
             else{
                 Map<String,Object> exp= new LinkedHashMap<>();
                 exp.put("Name",name);
-                exp.put("expTime",expList);
+                exp.put("expTime",expList);                
                 Object ty= cd.getOrDefault("Total Experience Years", 0);
+                if(ty.equals(0) && cd.containsKey("Experience")){
+                    double totalYears = 0;
+                    for(Map<String,Object> e:expList){
+                        Object yrs = e.get("years");
+                        if (yrs instanceof Number)
+                            totalYears+= ((Number)yrs).doubleValue();
+                    }
+                    ty= totalYears;
+                }
                 exp.put("Total Experience Years",ty);
                 op.add(exp);
             }
@@ -51,9 +60,17 @@ public class Exp {
                     @SuppressWarnings("unchecked")
                     Map<String,Object> expMap= (Map<String,Object>) exp;
                     Map<String,Object> result= new LinkedHashMap<>();
-                    result.put("company",expMap.getOrDefault("company", "Unknown"));
-                    result.put("role", expMap.getOrDefault("role", "Unknown"));
-                    result.put("years", expMap.getOrDefault("years", 0));
+                    String company= expMap.getOrDefault("company", "Unknown").toString();
+                    String role= expMap.getOrDefault("role", "Unknown").toString();
+                    List<String> detectedOrgs= com.airesume.NLPUtils.findOrganizations(company+" "+role);
+                    if(!detectedOrgs.isEmpty())
+                        company = detectedOrgs.get(0);
+                    List<String> detectedRoles= com.airesume.NLPUtils.findJobTitles(role);
+                    if(!detectedRoles.isEmpty())
+                        role= detectedRoles.get(0);
+                    result.put("company",company);
+                    result.put("role",role);
+                    result.put("years",expMap.getOrDefault("years", 0));
                     expList.add(result);                    
                 }
             }

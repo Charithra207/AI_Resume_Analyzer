@@ -16,14 +16,15 @@ public class BiasDetector{
         if(jobs != null){
             for(Map<String,Object> job:jobs){
                 String desc = job.getOrDefault("description","").toString().toLowerCase();
-                List<String>foundBias = findBias(desc);
+                String normDesc= NLPUtils.normalizeText(desc);
+                List<String>foundBias = findBias(normDesc);
                 if(!foundBias.isEmpty()){
                     Map<String,Object> report =new LinkedHashMap<>();
                     report.put("source",jdFile);
                     report.put("jobId",job.getOrDefault("id", "N/A"));
                     report.put("title",job.getOrDefault("title", "N/A"));
                     report.put("biasDetected",foundBias);
-                    report.put("severity",foundBias.size() >3 ?"High":"Medium");
+                    report.put("severity",severityLevel(foundBias.size()));
                     biasReports.add(report);
                 }
             }
@@ -32,13 +33,14 @@ public class BiasDetector{
         if(resumes != null){
             for(Map<String,Object> res:resumes){
                 String summary= res.getOrDefault("summary", "").toString().toLowerCase();
-                List<String>foundBias = findBias(summary);
+                String normSummary= NLPUtils.normalizeText(summary);
+                List<String>foundBias = findBias(normSummary);
                 if (!foundBias.isEmpty()) {
                     Map<String, Object> report = new LinkedHashMap<>();
                     report.put("source",analysisFile);
                     report.put("name",res.getOrDefault("Name", "N/A"));
                     report.put("biasDetected",foundBias);
-                    report.put("severity",foundBias.size() > 3 ? "High" : "Low");
+                    report.put("severity",severityLevel(foundBias.size()));
                     biasReports.add(report);
                 }
             }
@@ -49,11 +51,21 @@ public class BiasDetector{
     private static List<String>findBias(String text){
         List<String>found = new ArrayList<>();
         for(String word:biasWords){
-            if(text.contains(word.toLowerCase())){
+            if(NLPUtils.containsWord(text, word)){
                 found.add(word);
             }
         }
         return found;
+    }
+    private static String severityLevel(int count){
+        if(count>5) 
+            return "Critical";
+        if(count>3) 
+            return "High";
+        if(count>0) 
+            return "Medium";
+        return 
+            "None";
     }
     private static List<Map<String,Object>>readFile(String filename){
         try(Reader reader =new FileReader(filename)){
