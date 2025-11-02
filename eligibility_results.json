@@ -1,76 +1,31 @@
 [
   {
+    "jobId": "J001",
     "title": "Backend Developer",
     "candidates": [
       {
-        "name": "Aarav Patel",
-        "email": "aarav.patel@gmail.com",
+        "name": "Riya Sharma.",
+        "email": "riya.sharma@gmail.com",
+        "eligibility": "Moderately Eligible",
         "matchedSkills": [
           "Java",
           "SQL"
         ],
         "matchedCount": 2,
         "requiredCount": 3,
-        "experienceYears": 2.0,
-        "careerGapYears": 0.0,
-        "meetsExperience": true,
-        "scorePer": 66.67
-      },
-      {
-        "name": "Sneha Iyer",
-        "email": "sneha.iyer@gmail.com",
-        "matchedSkills": [
-          "SQL"
-        ],
-        "matchedCount": 1,
-        "requiredCount": 3,
-        "experienceYears": 2.5,
-        "careerGapYears": 0.0,
-        "meetsExperience": true,
-        "scorePer": 33.33
-      },
-      {
-        "name": "Ananya Rao",
-        "email": "ananya.rao@gmail.com",
-        "matchedSkills": [
-          "SQL"
-        ],
-        "matchedCount": 1,
-        "requiredCount": 3,
         "experienceYears": 0.0,
         "careerGapYears": 0.0,
         "meetsExperience": false,
-        "scorePer": 23.33
+        "scorePer": 56.67
       },
       {
-        "name": "Isha Sharma",
-        "email": "isha.sharma@gmail.com",
+        "name": "Arjun Mehta.",
+        "email": "arjun.mehta@yahoo.com",
+        "eligibility": "Low Fit",
         "matchedSkills": [],
         "matchedCount": 0,
         "requiredCount": 3,
-        "experienceYears": 1.5,
-        "careerGapYears": 0.0,
-        "meetsExperience": false,
-        "scorePer": 0.0
-      },
-      {
-        "name": "Rahul Mehta",
-        "email": "rahul.mehta@gmail.com",
-        "matchedSkills": [],
-        "matchedCount": 0,
-        "requiredCount": 3,
-        "experienceYears": 13.0,
-        "careerGapYears": 0.0,
-        "meetsExperience": true,
-        "scorePer": 0.0
-      },
-      {
-        "name": "Karan Verma",
-        "email": "karan.verma@gmail.com",
-        "matchedSkills": [],
-        "matchedCount": 0,
-        "requiredCount": 3,
-        "experienceYears": 1.0,
+        "experienceYears": 0.0,
         "careerGapYears": 0.0,
         "meetsExperience": false,
         "scorePer": 0.0
@@ -78,237 +33,36 @@
     ]
   },
   {
+    "jobId": "J002",
     "title": "ML Engineer",
     "candidates": [
       {
-        "name": "Isha Sharma",
-        "email": "isha.sharma@gmail.com",
-        "matchedSkills": [
-          "Python",
-          "Machine Learning",
-          "TensorFlow"
-        ],
-        "matchedCount": 3,
-        "requiredCount": 3,
-        "experienceYears": 1.5,
-        "careerGapYears": 0.0,
-        "meetsExperience": true,
-        "scorePer": 100.0
-      },
-      {
-        "name": "Sneha Iyer",
-        "email": "sneha.iyer@gmail.com",
+        "name": "Riya Sharma.",
+        "email": "riya.sharma@gmail.com",
+        "eligibility": "Low Fit",
         "matchedSkills": [
           "Python"
         ],
         "matchedCount": 1,
         "requiredCount": 3,
-        "experienceYears": 2.5,
-        "careerGapYears": 0.0,
-        "meetsExperience": true,
-        "scorePer": 33.33
-      },
-      {
-        "name": "Aarav Patel",
-        "email": "aarav.patel@gmail.com",
-        "matchedSkills": [],
-        "matchedCount": 0,
-        "requiredCount": 3,
-        "experienceYears": 2.0,
-        "careerGapYears": 0.0,
-        "meetsExperience": true,
-        "scorePer": 0.0
-      },
-      {
-        "name": "Rahul Mehta",
-        "email": "rahul.mehta@gmail.com",
-        "matchedSkills": [],
-        "matchedCount": 0,
-        "requiredCount": 3,
-        "experienceYears": 13.0,
-        "careerGapYears": 0.0,
-        "meetsExperience": true,
-        "scorePer": 0.0
-      },
-      {
-        "name": "Karan Verma",
-        "email": "karan.verma@gmail.com",
-        "matchedSkills": [],
-        "matchedCount": 0,
-        "requiredCount": 3,
-        "experienceYears": 1.0,
-        "careerGapYears": 0.0,
-        "meetsExperience": true,
-        "scorePer": 0.0
-      },
-      {
-        "name": "Ananya Rao",
-        "email": "ananya.rao@gmail.com",
-        "matchedSkills": [],
-        "matchedCount": 0,
-        "requiredCount": 3,
         "experienceYears": 0.0,
         "careerGapYears": 0.0,
         "meetsExperience": false,
-        "scorePer": 0.0
-      }
-    ]
-  },
-  {
-    "title": "Frontend Developer",
-    "candidates": [
-      {
-        "name": "Rahul Mehta",
-        "email": "rahul.mehta@gmail.com",
-        "matchedSkills": [
-          "HTML",
-          "CSS",
-          "JavaScript",
-          "React"
-        ],
-        "matchedCount": 4,
-        "requiredCount": 4,
-        "experienceYears": 13.0,
-        "careerGapYears": 0.0,
-        "meetsExperience": true,
-        "scorePer": 100.0
+        "scorePer": 28.33
       },
       {
-        "name": "Aarav Patel",
-        "email": "aarav.patel@gmail.com",
-        "matchedSkills": [],
-        "matchedCount": 0,
-        "requiredCount": 4,
-        "experienceYears": 2.0,
-        "careerGapYears": 0.0,
-        "meetsExperience": false,
-        "scorePer": 0.0
-      },
-      {
-        "name": "Isha Sharma",
-        "email": "isha.sharma@gmail.com",
-        "matchedSkills": [],
-        "matchedCount": 0,
-        "requiredCount": 4,
-        "experienceYears": 1.5,
-        "careerGapYears": 0.0,
-        "meetsExperience": false,
-        "scorePer": 0.0
-      },
-      {
-        "name": "Sneha Iyer",
-        "email": "sneha.iyer@gmail.com",
-        "matchedSkills": [],
-        "matchedCount": 0,
-        "requiredCount": 4,
-        "experienceYears": 2.5,
-        "careerGapYears": 0.0,
-        "meetsExperience": false,
-        "scorePer": 0.0
-      },
-      {
-        "name": "Karan Verma",
-        "email": "karan.verma@gmail.com",
-        "matchedSkills": [],
-        "matchedCount": 0,
-        "requiredCount": 4,
-        "experienceYears": 1.0,
-        "careerGapYears": 0.0,
-        "meetsExperience": false,
-        "scorePer": 0.0
-      },
-      {
-        "name": "Ananya Rao",
-        "email": "ananya.rao@gmail.com",
-        "matchedSkills": [],
-        "matchedCount": 0,
-        "requiredCount": 4,
-        "experienceYears": 0.0,
-        "careerGapYears": 0.0,
-        "meetsExperience": false,
-        "scorePer": 0.0
-      }
-    ]
-  },
-  {
-    "title": "Data Analyst",
-    "candidates": [
-      {
-        "name": "Sneha Iyer",
-        "email": "sneha.iyer@gmail.com",
-        "matchedSkills": [
-          "SQL",
-          "Excel",
-          "Python"
-        ],
-        "matchedCount": 3,
-        "requiredCount": 4,
-        "experienceYears": 2.5,
-        "careerGapYears": 0.0,
-        "meetsExperience": true,
-        "scorePer": 75.0
-      },
-      {
-        "name": "Ananya Rao",
-        "email": "ananya.rao@gmail.com",
-        "matchedSkills": [
-          "SQL",
-          "Excel"
-        ],
-        "matchedCount": 2,
-        "requiredCount": 4,
-        "experienceYears": 0.0,
-        "careerGapYears": 0.0,
-        "meetsExperience": false,
-        "scorePer": 40.0
-      },
-      {
-        "name": "Aarav Patel",
-        "email": "aarav.patel@gmail.com",
-        "matchedSkills": [
-          "SQL"
-        ],
-        "matchedCount": 1,
-        "requiredCount": 4,
-        "experienceYears": 2.0,
-        "careerGapYears": 0.0,
-        "meetsExperience": true,
-        "scorePer": 25.0
-      },
-      {
-        "name": "Isha Sharma",
-        "email": "isha.sharma@gmail.com",
+        "name": "Arjun Mehta.",
+        "email": "arjun.mehta@yahoo.com",
+        "eligibility": "Low Fit",
         "matchedSkills": [
           "Python"
         ],
         "matchedCount": 1,
-        "requiredCount": 4,
-        "experienceYears": 1.5,
+        "requiredCount": 3,
+        "experienceYears": 0.0,
         "careerGapYears": 0.0,
         "meetsExperience": false,
-        "scorePer": 22.5
-      },
-      {
-        "name": "Rahul Mehta",
-        "email": "rahul.mehta@gmail.com",
-        "matchedSkills": [],
-        "matchedCount": 0,
-        "requiredCount": 4,
-        "experienceYears": 13.0,
-        "careerGapYears": 0.0,
-        "meetsExperience": true,
-        "scorePer": 0.0
-      },
-      {
-        "name": "Karan Verma",
-        "email": "karan.verma@gmail.com",
-        "matchedSkills": [],
-        "matchedCount": 0,
-        "requiredCount": 4,
-        "experienceYears": 1.0,
-        "careerGapYears": 0.0,
-        "meetsExperience": false,
-        "scorePer": 0.0
+        "scorePer": 28.33
       }
     ]
   }

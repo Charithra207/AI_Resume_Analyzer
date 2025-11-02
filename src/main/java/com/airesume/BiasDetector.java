@@ -15,7 +15,8 @@ public class BiasDetector{
         List<Map<String,Object>> jobs = readFile(jdFile);
         if(jobs != null){
             for(Map<String,Object> job:jobs){
-                String desc = job.getOrDefault("description","").toString().toLowerCase();
+                String desc= job.getOrDefault("description","").toString();
+                if(desc==null || desc.isEmpty()) continue;
                 String normDesc= NLPUtils.normalizeText(desc);
                 List<String>foundBias = findBias(normDesc);
                 if(!foundBias.isEmpty()){
@@ -32,7 +33,9 @@ public class BiasDetector{
         List<Map<String,Object>> resumes= readFile(analysisFile);
         if(resumes != null){
             for(Map<String,Object> res:resumes){
-                String summary= res.getOrDefault("summary", "").toString().toLowerCase();
+                String summary= res.getOrDefault("summary", "").toString();
+                if(summary==null || summary.isEmpty()) 
+                    continue;
                 String normSummary= NLPUtils.normalizeText(summary);
                 List<String>foundBias = findBias(normSummary);
                 if (!foundBias.isEmpty()) {
@@ -50,10 +53,11 @@ public class BiasDetector{
     }
     private static List<String>findBias(String text){
         List<String>found = new ArrayList<>();
+        String lowerText= text.toLowerCase();
         for(String word:biasWords){
-            if(NLPUtils.containsWord(text, word)){
+            String w= word.toLowerCase();
+            if(lowerText.contains(" "+w+" ") || lowerText.startsWith(w+" ") || lowerText.endsWith(" "+w) || lowerText.equals(w))
                 found.add(word);
-            }
         }
         return found;
     }

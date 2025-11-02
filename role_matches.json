@@ -1,32 +1,12 @@
 [
   {
-    "name": "Aarav Patel",
+    "name": "Riya Sharma.",
     "bestRole": "Backend Developer",
     "matchPercent": 66.67
   },
   {
-    "name": "Isha Sharma",
+    "name": "Arjun Mehta.",
     "bestRole": "ML Engineer",
-    "matchPercent": 100.0
-  },
-  {
-    "name": "Rahul Mehta",
-    "bestRole": "Frontend Developer",
-    "matchPercent": 100.0
-  },
-  {
-    "name": "Sneha Iyer",
-    "bestRole": "Data Analyst",
-    "matchPercent": 75.0
-  },
-  {
-    "name": "Karan Verma",
-    "bestRole": "None",
-    "matchPercent": 0.0
-  },
-  {
-    "name": "Ananya Rao",
-    "bestRole": "Data Analyst",
-    "matchPercent": 50.0
+    "matchPercent": 33.33
   }
 ]

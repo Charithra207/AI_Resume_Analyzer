@@ -3,6 +3,7 @@ import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import java.io.*;
 import java.lang.reflect.Type;
+import java.util.regex.Pattern;
 import java.util.*;
 public class JobMatcher{
     private static final double PENALTY_MY=5.0;
@@ -34,17 +35,17 @@ public class JobMatcher{
                 results.add(r);
             }
             results.sort((a,b)->Double.compare(b.scorePer,a.scorePer));
-            JobResults jr=new JobResults(job.jobId,job.title,results);
+            JobResults jr=new JobResults(job.id!=null ? job.id:"N/A",job.title!=null ? job.title:"Unknown",results);
             jResults.add(jr);
+            System.out.printf("Job '%s' → %d candidates scored.%n",job.title,results.size());
         }
         writeResults(jResults,outFile);
         System.out.println("Eligibility results saved to: "+outFile);
     }
     private static CandidateResult calScore(Map<String,Object> resume,Job job){
         String name=safeString(resume.get("Name"));
-        String email=safeString(resume.get("Email"));
-        Object resumeTextObj= resume.getOrDefault("RawText", "");
-        String resumeText= resumeTextObj.toString();
+        String email=safeString(resume.get("Email"));        
+        String resumeText= safeString(resume.get("RawText"));
         Set<String> candiSk=new HashSet<>();
         Object skillsObj=resume.get("Skills");
         if(skillsObj instanceof List<?>){
@@ -59,6 +60,10 @@ public class JobMatcher{
         candiSk.addAll(NLPUtils.findSkills(resumeText).stream().map(String::toLowerCase).toList());        
         double expYears=parseNumber(resume.get("Total Experience Years"));
         double gap=parseNumber(resume.get("Career Gap"));
+        if(!resume.containsKey("Total Experience Years"))
+            System.out.println("Missing experience for: "+name);
+        if(!resume.containsKey("Career Gap"))
+            System.out.println("Missing career gap for: "+name);
         List<String> required=job.requiredSkills!=null?job.requiredSkills:Collections.emptyList();
         int reqCount=required.size();
         Set<String> matched=new LinkedHashSet<>();
@@ -67,7 +72,7 @@ public class JobMatcher{
                 continue;
             String nreq=req.toLowerCase().trim();
             for(String skill:candiSk){
-                if(skill.equalsIgnoreCase(nreq) || NLPUtils.findSkills(skill).contains(nreq)){
+                if(skill.equalsIgnoreCase(nreq) || skill.matches(".*\\b"+Pattern.quote(nreq)+"\\b.*")){
                     matched.add(req);
                     break;
                 }
@@ -98,6 +103,12 @@ public class JobMatcher{
         res.careerGapYears=gap;
         res.meetsExperience=meetsExp;
         res.scorePer=Math.round(score*100.0)/100.0;
+        if(res.scorePer >=80) 
+            res.eligibility= "Highly Eligible";
+        else if(res.scorePer >=50) 
+            res.eligibility= "Moderately Eligible";
+        else 
+            res.eligibility= "Low Fit";
         return res;
     }
 
@@ -152,7 +163,7 @@ public class JobMatcher{
         }
     }
     static class Job {
-        String jobId;
+        String id;
         String title;
         List<String> requiredSkills;
         int minExperience;
@@ -160,6 +171,7 @@ public class JobMatcher{
     static class CandidateResult {
         String name;
         String email;
+        String eligibility;
         List<String> matchedSkills;
         int matchedCount;
         int requiredCount;

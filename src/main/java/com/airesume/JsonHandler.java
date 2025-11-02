@@ -25,8 +25,18 @@ public class JsonHandler {
                 for(JsonElement ele:element.getAsJsonArray()) {
                     if(ele.isJsonPrimitive())
                         resumeTexts.add(ele.getAsString());
-                    else if (ele.isJsonObject() && ele.getAsJsonObject().has("resume")) 
-                        resumeTexts.add(ele.getAsJsonObject().get("resume").getAsString());  
+                    else if (ele.isJsonObject()){
+                        JsonObject obj= ele.getAsJsonObject();
+                        StringBuilder sb= new StringBuilder();
+                        if(obj.has("name")) sb.append("Name: ").append(obj.get("name").getAsString()).append(". ");
+                        if(obj.has("email")) sb.append("Email: ").append(obj.get("email").getAsString()).append(". ");
+                        if(obj.has("phone")) sb.append("Phone: ").append(obj.get("phone").getAsString()).append(". ");
+                        if(obj.has("skills")) sb.append("Skills: ").append(obj.get("skills").toString()).append(". ");
+                        if(obj.has("education")) sb.append("Education: ").append(obj.get("education").getAsString()).append(". ");
+                        if(obj.has("experience")) sb.append("Experience: ").append(obj.get("experience").getAsString()).append(". ");
+                        if(sb.length()>0)
+                            resumeTexts.add(sb.toString().trim());
+                    }
                 }            
             }
             else if(element.isJsonPrimitive())

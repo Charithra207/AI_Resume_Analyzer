@@ -1,7 +1,8 @@
 package com.airesume;
 import com.google.gson.*;
 import java.io.*;
-import java.util.*; 
+import java.util.*;
+import java.util.stream.Collectors;
 public class SkillGap{   
     public static void main(String[] args){
         try{
@@ -10,18 +11,17 @@ public class SkillGap{
             JsonArray op= new JsonArray();
             for(JsonElement r:resumes){
                 JsonObject res= r.getAsJsonObject();
-                String name= res.get("Name").getAsString();
+                String name= res.has("Name") ? res.get("Name").getAsString():res.has("name") ? res.get("name").getAsString():"Unknown"; 
                 Set<String> cdSkills= new HashSet<>();
                 if(res.has("Skills") && res.get("Skills").isJsonArray()){
                     for(JsonElement s: res.getAsJsonArray("Skills")) 
                         cdSkills.add(s.getAsString().toLowerCase());
                 }
                 String resumeText= res.has("RawText") ? res.get("RawText").getAsString() : "";
-                cdSkills.addAll(NLPUtils.findSkills(resumeText)
-                    .stream().map(String::toLowerCase).toList());
+                cdSkills.addAll(NLPUtils.findSkills(resumeText).stream().map(String::toLowerCase).collect(Collectors.toList()));                  
                 for(JsonElement j:jobs){
                     JsonObject job= j.getAsJsonObject();
-                    String jobTitle= job.get("title").getAsString();
+                    String jobTitle= job.has("title") ?job.get("title").getAsString():job.has("Job title") ? job.get("Job title").getAsString() :"Unknown";
                     List<String> missSkills= new ArrayList<>();
                     if(job.has("requiredSkills") && job.get("requiredSkills").isJsonArray()){
                         JsonArray reqSkills= job.getAsJsonArray("requiredSkills");
@@ -31,7 +31,7 @@ public class SkillGap{
                                 missSkills.add(req.getAsString());
                         }
                     }
-                    if (missSkills.isEmpty() && job.has("description")){
+                    if (job.has("description")){
                         String jdText= job.get("description").getAsString();
                         List<String> jdSkills= NLPUtils.findSkills(jdText);
                         for(String jdSkill:jdSkills){
@@ -44,6 +44,7 @@ public class SkillGap{
                         result.addProperty("name",name);
                         result.addProperty("jobTitle",jobTitle);
                         result.add("missingSkills",new Gson().toJsonTree(missSkills));
+                        result.add("candidateSkills",new Gson().toJsonTree(cdSkills));
                         op.add(result);
                     }
                 }

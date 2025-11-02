@@ -27,9 +27,10 @@ public class Ranker{
         Map<String,String> resumeTexts= loadResumeTexts(analysisFile);
         Map<String,String> jobDescriptions= loadJobDescriptions(jdFile);
         for(JobResults job:jobList){
-            System.out.println("Processing Job ID: "+job.jobId);
+            String jobIdSafe= job.jobId==null ? "unknown": job.jobId;
+            System.out.println("Processing Job ID: "+jobIdSafe);
             if (job.candidates==null || job.candidates.isEmpty()){
-                System.out.println("No candidates for Job ID: " + job.jobId);
+                System.out.println("No candidates for Job ID: " + jobIdSafe);
                 continue;
             }
             List<CdResult> filtered = new ArrayList<>();          
@@ -37,24 +38,29 @@ public class Ranker{
                 if(c.scorePer >= MIN_SCORE && c.experienceYears >= MIN_EXP){
                     String resumeText= resumeTexts.getOrDefault(c.name.toLowerCase(), "");
                     String jdText= jobDescriptions.getOrDefault(job.jobId,jobDescriptions.getOrDefault(job.title, ""));
-                    double semanticScore= NLPUtils.semanticSimilarity(resumeText, jdText) * 100;
+                    double semanticScore= 0.0;
+                    try{
+                        semanticScore=NLPUtils.semanticSimilarity(resumeText, jdText)*100;
+                    }
+                    catch(Exception e){
+                        System.out.println("Semantic similarity error for "+c.name+ ": "+e.getMessage());
+                        semanticScore = 0.0;
+                    }
                     List<String> resumeSkills= NLPUtils.findSkills(resumeText);
                     List<String> jdSkills= NLPUtils.findSkills(jdText);
                     double skillOverlap= calculateSkillOverlap(resumeSkills,jdSkills);
-                    c.combinedScore= W_BASE*c.scorePer +W_SEMANTIC *semanticScore+W_SKILL *skillOverlap;
+                    c.combinedScore= clamp(W_BASE*c.scorePer +W_SEMANTIC *semanticScore+W_SKILL *skillOverlap,0.0,100.0);
                     c.semanticScore= Math.round(semanticScore * 100.0) / 100.0;
                     c.skillOverlap= Math.round(skillOverlap * 100.0) / 100.0;
                     filtered.add(c);
                 }
             }
-            Collections.sort(filtered,(a, b)->{
-                if(b.combinedScore != a.combinedScore)
-                    return Double.compare(b.combinedScore,a.combinedScore);
-                else if(b.experienceYears != a.experienceYears)
-                    return Double.compare(b.experienceYears,a.experienceYears);
-                else
-                    return Double.compare(a.careerGapYears,b.careerGapYears);
-                
+            filtered.sort((a,b)->{
+                int comp= Double.compare(b.combinedScore,a.combinedScore);            
+                if(comp!=0) return comp;
+                comp= Double.compare(b.experienceYears,a.experienceYears);
+                if(comp!=0) return comp;
+                return Double.compare(a.careerGapYears,b.careerGapYears);                
             });
             int total = filtered.size();
             int rank =1;
@@ -62,11 +68,18 @@ public class Ranker{
                 c.rank = rank++;
                 c.tc = total;
             }
-            String opFile = "ranked_candidates_"+job.jobId+".json";
-            writeResults(filtered,opFile);
-            System.out.println("Ranked file saved: "+opFile);
+            String outSafe = "ranked_candidates_"+safeFilename(jobIdSafe)+".json";
+            writeResults(filtered,outSafe);
+            System.out.println("Ranked file saved: "+outSafe);
         }
     }
+    private static double clamp(double v,double lo,double hi){
+        return Math.max(lo,Math.min(hi,v));
+    }  
+    private static String safeFilename(String s){
+        if(s==null) return "unknown";
+        return s.replaceAll("[^A-Za-z0-9._-]", "_");
+    }  
     private static List<JobResults> readResults(String path){
         Gson gson = new GsonBuilder().create();
         try(FileReader reader = new FileReader(path)){

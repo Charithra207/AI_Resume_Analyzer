@@ -4,6 +4,8 @@ import com.google.gson.reflect.TypeToken;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.*;
+import java.util.regex.Pattern; 
+import java.util.stream.Collectors;
 public class RoleMatcher {
      public static void main(String[] args){
         matchRoles("jd_input.json","analysis_output.json","role_matches.json");
@@ -17,16 +19,15 @@ public class RoleMatcher {
         }
         List<Map<String,Object>>matches =new ArrayList<>();
         for(Map<String,Object> cd:analysisData){
-            String name= cd.getOrDefault("Name","N/A").toString();
-            Object rawTextObj= cd.getOrDefault("RawText","");
-            String resumeText= rawTextObj.toString();
+            String name= cd.containsKey("Name")? cd.get("Name").toString(): cd.containsKey("name") ?cd.get("name").toString():"Unknown";
+            String resumeText= cd.getOrDefault("RawText","").toString();            
             Set<String> cdSkills = new HashSet<>(getList(cd.get("Skills")));
-            cdSkills.addAll(NLPUtils.findSkills(resumeText).stream().map(String::toLowerCase).toList());
+            cdSkills.addAll(NLPUtils.findSkills(resumeText).stream().map(String::toLowerCase).collect(Collectors.toSet()));
             double bestMatch= 0.0;
             String bestRole= "None";
             for(Map<String,Object> job:jobData){
-                String title= job.getOrDefault("title","N/A").toString();
-                List<String> reqSkills= getList(job.get("requiredSkills"),null);
+                String title= job.containsKey("title")? job.get("title").toString(): job.containsKey("Job title")? job.get("Job title").toString():"Unknown";
+                List<String> reqSkills= getList(job.get("requiredSkills"));
                 double matchPer= calMatch(new ArrayList<>(cdSkills),reqSkills);
                 List<String> nlpRoles = NLPUtils.findJobTitles(resumeText);
                 if(nlpRoles.stream().anyMatch(r -> r.equalsIgnoreCase(title)))
@@ -64,7 +65,7 @@ public class RoleMatcher {
         int cmn= 0;
         for(String skill:reqSkills){
             for(String sk:cdSkills){
-                if(sk.equals(skill)) {
+                if(sk.equalsIgnoreCase(skill) || Pattern.compile("\\b"+Pattern.quote(skill)+"\\b").matcher(sk).find()){
                     cmn++;
                     break;
                 }

@@ -1,188 +1,97 @@
 [
   {
-    "Name": "Aarav Patel",
-    "Email": "aarav.patel@gmail.com",
-    "Phone": "9876543210",
+    "Name": "Riya Sharma.",
+    "Email": "riya.sharma@gmail.com",
+    "Phone": "+919876543210",
     "Gender": "Not Specified",
     "Bias Indicators": [],
     "Skills": [
       "Java",
-      "Spring",
-      "SQL",
-      "Git"
-    ],
-    "Job Role": "Backend Developer",
-    "Experience": [
-      {
-        "company": "Education",
-        "role": "Backend Developer",
-        "years": 0.0
-      },
-      {
-        "company": "TechNova as Backend Developer",
-        "role": "Unknown",
-        "years": 2.0
-      }
-    ],
-    "Total Experience Years": 2.0,
-    "Career Gap": 0
-  },
-  {
-    "Name": "Isha Sharma",
-    "Email": "isha.sharma@gmail.com",
-    "Phone": "9876501234",
-    "Gender": "Not Specified",
-    "Bias Indicators": [],
-    "Skills": [
-      "Artificial Intelligence",
       "Python",
-      "Machine Learning",
-      "TensorFlow"
-    ],
-    "Job Role": "ML Engineer",
-    "Experience": [
-      {
-        "company": "Education",
-        "role": "ML Engineer",
-        "years": 0.0
-      },
-      {
-        "company": "ML Engineer",
-        "role": "Unknown",
-        "years": 0.0
-      },
-      {
-        "company": "DataMind as ML Engineer",
-        "role": "Unknown",
-        "years": 1.5
-      }
-    ],
-    "Total Experience Years": 1.5,
-    "Career Gap": 0
-  },
-  {
-    "Name": "Rahul Mehta",
-    "Email": "rahul.mehta@gmail.com",
-    "Phone": "9856734210",
-    "Gender": "Not Specified",
-    "Bias Indicators": [],
-    "Skills": [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "React",
-      "Node.js"
-    ],
-    "Job Role": "Frontend Developer",
-    "Experience": [
-      {
-        "company": "Education",
-        "role": "Frontend Developer",
-        "years": 0.0
-      },
-      {
-        "company": "Information Technology",
-        "role": "Unknown",
-        "years": 0.0
-      },
-      {
-        "company": "WebCrafters as Fron",
-        "role": "Unknown",
-        "years": 10.0
-      },
-      {
-        "company": "WebCrafters as Frontend Developer",
-        "role": "Unknown",
-        "years": 3.0
-      }
-    ],
-    "Total Experience Years": 13.0,
-    "Career Gap": 0
-  },
-  {
-    "Name": "Sneha Iyer",
-    "Email": "sneha.iyer@gmail.com",
-    "Phone": "9823418765",
-    "Gender": "Not Specified",
-    "Bias Indicators": [],
-    "Skills": [
       "SQL",
+      "Spring"
+    ],
+    "Job Role": "Software Engineer",
+    "Education": [
+      {
+        "degree": "ME",
+        "university": "Unknown",
+        "year": "Unknown"
+      },
+      {
+        "degree": "B.TECH",
+        "university": "B.Tech in Computer Science from IIT Delhi in 2021 with a CGPA of 8",
+        "year": "2021"
+      }
+    ],
+    "Experience": [
+      {
+        "company": "Education",
+        "role": "Software Engineer",
+        "duration": "3 years",
+        "raw_duration_text": "for 3 years"
+      },
+      {
+        "company": "Software Engineer",
+        "role": "Unknown Role",
+        "duration": "Unknown",
+        "raw_duration_text": ""
+      }
+    ],
+    "Total Experience": "3 years",
+    "Career Gap": 0
+  },
+  {
+    "Name": "Arjun Mehta.",
+    "Email": "arjun.mehta@yahoo.com",
+    "Phone": "+919123456789",
+    "Gender": "Not Specified",
+    "Bias Indicators": [],
+    "Skills": [
       "Excel",
-      "Python"
+      "Power BI",
+      "Python",
+      "Tableau"
     ],
     "Job Role": "Data Analyst",
+    "Education": [
+      {
+        "degree": "ME",
+        "university": "Unknown",
+        "year": "Unknown"
+      },
+      {
+        "degree": "ME",
+        "university": "Unknown",
+        "year": "Unknown"
+      },
+      {
+        "degree": "MBA",
+        "university": "B.Sc in Statistics from Mumbai University in 2022",
+        "year": "2022"
+      }
+    ],
     "Experience": [
       {
         "company": "Education",
         "role": "Data Analyst",
-        "years": 0.0
+        "duration": "Unknown",
+        "raw_duration_text": ""
       },
       {
-        "company": "Insight Analytics",
-        "role": "Unknown",
-        "years": 0.0
+        "company": "Mumbai University",
+        "role": "Unknown Role",
+        "duration": "Unknown",
+        "raw_duration_text": ""
       },
       {
         "company": "Data Analyst",
-        "role": "Unknown",
-        "years": 0.0
-      },
-      {
-        "company": "Insight Analytics as Data Analyst",
-        "role": "Unknown",
-        "years": 2.5
+        "role": "Unknown Role",
+        "duration": "Unknown",
+        "raw_duration_text": ""
       }
     ],
-    "Total Experience Years": 2.5,
-    "Career Gap": 0
-  },
-  {
-    "Name": "Karan Verma",
-    "Email": "karan.verma@gmail.com",
-    "Phone": "9871209988",
-    "Gender": "Not Specified",
-    "Bias Indicators": [],
-    "Skills": [],
-    "Job Role": "Engineer",
-    "Experience": [
-      {
-        "company": "Education",
-        "role": "Engineer",
-        "years": 0.0
-      },
-      {
-        "company": "Embedded Engineer",
-        "role": "Unknown",
-        "years": 0.0
-      },
-      {
-        "company": "ElectroBotics as Embedded Engineer",
-        "role": "Unknown",
-        "years": 1.0
-      }
-    ],
-    "Total Experience Years": 1.0,
-    "Career Gap": 0
-  },
-  {
-    "Name": "Ananya Rao",
-    "Email": "ananya.rao@gmail.com",
-    "Phone": "9812345678",
-    "Gender": "Not Specified",
-    "Bias Indicators": [],
-    "Skills": [
-      "SQL",
-      "Excel"
-    ],
-    "Job Role": "Not Specified",
-    "Experience": [
-      {
-        "company": "Education",
-        "role": "Unknown",
-        "years": 0.0
-      }
-    ],
-    "Total Experience Years": 0.0,
+    "Total Experience": "Unknown",
     "Career Gap": 0
   }
 ]

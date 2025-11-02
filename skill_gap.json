@@ -1,199 +1,65 @@
 [
   {
-    "name": "Aarav Patel",
+    "name": "Riya Sharma.",
     "jobTitle": "Backend Developer",
     "missingSkills": [
       "Spring Boot"
+    ],
+    "candidateSkills": [
+      "spring",
+      "python",
+      "java",
+      "sql"
     ]
   },
   {
-    "name": "Aarav Patel",
+    "name": "Riya Sharma.",
     "jobTitle": "ML Engineer",
     "missingSkills": [
-      "Python",
       "Machine Learning",
+      "TensorFlow",
+      "Machine learning",
       "TensorFlow"
+    ],
+    "candidateSkills": [
+      "spring",
+      "python",
+      "java",
+      "sql"
     ]
   },
   {
-    "name": "Aarav Patel",
-    "jobTitle": "Frontend Developer",
-    "missingSkills": [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "React"
-    ]
-  },
-  {
-    "name": "Aarav Patel",
-    "jobTitle": "Data Analyst",
-    "missingSkills": [
-      "Excel",
-      "Python",
-      "Power BI"
-    ]
-  },
-  {
-    "name": "Isha Sharma",
+    "name": "Arjun Mehta.",
     "jobTitle": "Backend Developer",
     "missingSkills": [
       "Java",
       "Spring Boot",
-      "SQL"
-    ]
-  },
-  {
-    "name": "Isha Sharma",
-    "jobTitle": "Frontend Developer",
-    "missingSkills": [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "React"
-    ]
-  },
-  {
-    "name": "Isha Sharma",
-    "jobTitle": "Data Analyst",
-    "missingSkills": [
       "SQL",
-      "Excel",
-      "Power BI"
-    ]
-  },
-  {
-    "name": "Rahul Mehta",
-    "jobTitle": "Backend Developer",
-    "missingSkills": [
       "Java",
-      "Spring Boot",
+      "Spring",
       "SQL"
+    ],
+    "candidateSkills": [
+      "excel",
+      "python",
+      "tableau",
+      "power bi"
     ]
   },
   {
-    "name": "Rahul Mehta",
-    "jobTitle": "ML Engineer",
-    "missingSkills": [
-      "Python",
-      "Machine Learning",
-      "TensorFlow"
-    ]
-  },
-  {
-    "name": "Rahul Mehta",
-    "jobTitle": "Data Analyst",
-    "missingSkills": [
-      "SQL",
-      "Excel",
-      "Python",
-      "Power BI"
-    ]
-  },
-  {
-    "name": "Sneha Iyer",
-    "jobTitle": "Backend Developer",
-    "missingSkills": [
-      "Java",
-      "Spring Boot"
-    ]
-  },
-  {
-    "name": "Sneha Iyer",
+    "name": "Arjun Mehta.",
     "jobTitle": "ML Engineer",
     "missingSkills": [
       "Machine Learning",
+      "TensorFlow",
+      "Machine learning",
       "TensorFlow"
-    ]
-  },
-  {
-    "name": "Sneha Iyer",
-    "jobTitle": "Frontend Developer",
-    "missingSkills": [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "React"
-    ]
-  },
-  {
-    "name": "Sneha Iyer",
-    "jobTitle": "Data Analyst",
-    "missingSkills": [
-      "Power BI"
-    ]
-  },
-  {
-    "name": "Karan Verma",
-    "jobTitle": "Backend Developer",
-    "missingSkills": [
-      "Java",
-      "Spring Boot",
-      "SQL"
-    ]
-  },
-  {
-    "name": "Karan Verma",
-    "jobTitle": "ML Engineer",
-    "missingSkills": [
-      "Python",
-      "Machine Learning",
-      "TensorFlow"
-    ]
-  },
-  {
-    "name": "Karan Verma",
-    "jobTitle": "Frontend Developer",
-    "missingSkills": [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "React"
-    ]
-  },
-  {
-    "name": "Karan Verma",
-    "jobTitle": "Data Analyst",
-    "missingSkills": [
-      "SQL",
-      "Excel",
-      "Python",
-      "Power BI"
-    ]
-  },
-  {
-    "name": "Ananya Rao",
-    "jobTitle": "Backend Developer",
-    "missingSkills": [
-      "Java",
-      "Spring Boot"
-    ]
-  },
-  {
-    "name": "Ananya Rao",
-    "jobTitle": "ML Engineer",
-    "missingSkills": [
-      "Python",
-      "Machine Learning",
-      "TensorFlow"
-    ]
-  },
-  {
-    "name": "Ananya Rao",
-    "jobTitle": "Frontend Developer",
-    "missingSkills": [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "React"
-    ]
-  },
-  {
-    "name": "Ananya Rao",
-    "jobTitle": "Data Analyst",
-    "missingSkills": [
-      "Python",
-      "Power BI"
+    ],
+    "candidateSkills": [
+      "excel",
+      "python",
+      "tableau",
+      "power bi"
     ]
   }
 ]

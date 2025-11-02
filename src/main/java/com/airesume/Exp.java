@@ -9,6 +9,7 @@ public class Exp {
         expTime("analysis_output.json","exp.json");
     }
     public static void expTime(String ipFile,String opFile){
+        NLPUtils nlp = new NLPUtils();
         List<Map<String,Object>>analysis =readFile(ipFile);
         if(analysis==null || analysis.isEmpty()){
             System.out.println("No data found in "+ipFile);
@@ -24,26 +25,28 @@ public class Exp {
                 op.add(fresher);
                 continue;
             }
-            List<Map<String,Object>>expList = getExpList(cd.get("Experience"));
+            List<Map<String,Object>>expList = getExpList(cd.get("Experience"),nlp);
             if(expList.isEmpty()){
                 Map<String,Object> fresher =new LinkedHashMap<>();
                 fresher.put("Name",name);
                 fresher.put("expTime", "Fresher");
+                fresher.put("Total Experience", 0);
                 op.add(fresher);
             } 
             else{
                 Map<String,Object> exp= new LinkedHashMap<>();
                 exp.put("Name",name);
                 exp.put("expTime",expList);                
-                Object ty= cd.getOrDefault("Total Experience Years", 0);
-                if(ty.equals(0) && cd.containsKey("Experience")){
+                Object ty= cd.getOrDefault("Total Experience Years",cd.getOrDefault("Total Experience",
+                            cd.getOrDefault("Experience Years", 0)));                
+                if((ty instanceof Number &&((Number)ty).doubleValue()==0) || ty==null){
                     double totalYears = 0;
                     for(Map<String,Object> e:expList){
                         Object yrs = e.get("years");
                         if (yrs instanceof Number)
                             totalYears+= ((Number)yrs).doubleValue();
                     }
-                    ty= totalYears;
+                    ty= Math.round(totalYears*10.0)/10.0;
                 }
                 exp.put("Total Experience Years",ty);
                 op.add(exp);
@@ -52,7 +55,7 @@ public class Exp {
         writeFile(opFile,op);
         System.out.println("Experience timeline generated "+opFile);
     }
-    private static List<Map<String,Object>> getExpList(Object expObj){
+    private static List<Map<String,Object>> getExpList(Object expObj,NLPUtils nlp){
         List<Map<String,Object>>expList =new ArrayList<>();
         if(expObj instanceof List<?>){
             for(Object exp:(List<?>) expObj){
@@ -62,10 +65,10 @@ public class Exp {
                     Map<String,Object> result= new LinkedHashMap<>();
                     String company= expMap.getOrDefault("company", "Unknown").toString();
                     String role= expMap.getOrDefault("role", "Unknown").toString();
-                    List<String> detectedOrgs= com.airesume.NLPUtils.findOrganizations(company+" "+role);
+                    List<String> detectedOrgs= NLPUtils.findOrganizations(company+" "+role);
                     if(!detectedOrgs.isEmpty())
                         company = detectedOrgs.get(0);
-                    List<String> detectedRoles= com.airesume.NLPUtils.findJobTitles(role);
+                    List<String> detectedRoles= NLPUtils.findJobTitles(role);
                     if(!detectedRoles.isEmpty())
                         role= detectedRoles.get(0);
                     result.put("company",company);
