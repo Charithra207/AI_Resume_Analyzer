@@ -12,7 +12,7 @@ public class NLPUtils {
     private static NameFinderME personFinder;
     private static NameFinderME orgFinder;
     private static NameFinderME dateFinder;
-    private static boolean initialized = false;
+    private static volatile boolean initialized = false;
     public static synchronized void init(){
         if(initialized) 
             return;
@@ -22,31 +22,31 @@ public class NLPUtils {
                 if(s != null) 
                     sentDetector= new SentenceDetectorME(new SentenceModel(s));
                 else 
-                    System.err.println("[WARN] Sentence model not found!");
+                    System.err.println("[WARN] Sentence model not found at models/en-sent.bin!");
             }
             try(InputStream s= cl.getResourceAsStream("models/en-token.bin")){
                 if(s != null) 
                     tokenizer= new TokenizerME(new TokenizerModel(s));
                 else 
-                    System.err.println("[WARN] Tokenizer model not found!");   
+                    System.err.println("[WARN] Tokenizer model not found at models/en-token.bin!");   
             }
             try(InputStream s= cl.getResourceAsStream("models/en-ner-person.bin")){
                 if(s != null)
                     personFinder= new NameFinderME(new TokenNameFinderModel(s));
                 else 
-                    System.err.println("[WARN] Organization model not found!");
+                    System.err.println("[WARN] Organization model not found at models/en-ner-person.bin!");
             }
             try(InputStream s= cl.getResourceAsStream("models/en-ner-organization.bin")){
                 if(s != null) 
                     orgFinder = new NameFinderME(new TokenNameFinderModel(s));
                 else 
-                    System.err.println("[WARN] Organization model not found!");
+                    System.err.println("[WARN] Organization model not found at models/en-ner-organization.bin!");
             }
             try(InputStream s= cl.getResourceAsStream("models/en-ner-date.bin")){
                 if(s != null) 
                     dateFinder = new NameFinderME(new TokenNameFinderModel(s));
                 else 
-                    System.err.println("[WARN] Date model not found!");    
+                    System.err.println("[WARN] Date model not found at models/en-ner-date.bin!");    
             }
             initialized= true;
         } 
@@ -57,19 +57,25 @@ public class NLPUtils {
     }
     public static String[] sentences(String text){
         init();
+        if(text==null) 
+            return new String[0];
         return sentDetector != null ? sentDetector.sentDetect(text) : new String[]{text};
     }
     public static String[] tokens(String text){
         init();
-        return tokenizer != null ? tokenizer.tokenize(text) : text.split("\\s+");
+        if(text==null) return new String[0];
+        if(tokenizer !=null) return tokenizer.tokenize(text);
+        return text.replaceAll("([.,()\\[\\];:])", " $1 ").split("\\s+");
     }
     public static List<String> findPersons(String text){
         init();
         List<String> names= new ArrayList<>();
+        if(text==null || text.isEmpty()) return names;
         if(personFinder == null) 
             return names;
         synchronized(personFinder){
             String[] tokens= tokens(text);
+            if(tokens.length ==0) return names;
             Span[] spans= personFinder.find(tokens);
             for(Span s:spans) 
                 names.add(String.join(" ",Arrays.copyOfRange(tokens,s.getStart(),s.getEnd())));
@@ -80,28 +86,41 @@ public class NLPUtils {
     public static List<String> findOrganizations(String text){
         init();
         List<String> orgs= new ArrayList<>();
+        if(text==null || text.isEmpty()) return orgs;
         if(orgFinder == null) 
             return orgs;
         synchronized(orgFinder){
             String[] tokens= tokens(text);
+            if(tokens.length ==0) return orgs;
             Span[] spans= orgFinder.find(tokens);
-            for(Span s:spans) 
-                orgs.add(String.join(" ",Arrays.copyOfRange(tokens,s.getStart(),s.getEnd())));
+            for(Span s:spans) {
+                 String candidate = String.join(" ",Arrays.copyOfRange(tokens,s.getStart(),s.getEnd()));
+                if(candidate != null) candidate = candidate.trim();
+                if(candidate == null || candidate.length()<3) continue;
+                String low = candidate.toLowerCase();
+                if(low.matches(".*\\b(education|experience|skills|skill|phone|email|profile|address|summary)\\b.*")) continue;
+                if(low.matches(".*\\b(engineer|developer|manager|analyst|intern|consultant|scientist)\\b.*")) continue;
+                orgs.add(candidate);
+            }
             orgFinder.clearAdaptiveData();
+            orgs.removeIf(s -> s == null || s.trim().length()<3 || s.matches("^\\d+$"));
         }
-        return orgs;
+                return orgs;
     }
     public static List<String> findDates(String text){
         init();
         List<String> dates= new ArrayList<>();
+        if(text==null || text.isEmpty()) return dates;
         if(dateFinder == null) 
             return dates;
         synchronized(dateFinder){
             String[] tokens= tokens(text);
-            Span[] spans= dateFinder.find(tokens);
-            for(Span s:spans) 
-                dates.add(String.join(" ",Arrays.copyOfRange(tokens,s.getStart(),s.getEnd())));
-            dateFinder.clearAdaptiveData();
+            if(tokens.length >0) {
+                Span[] spans= dateFinder.find(tokens);
+                for(Span s:spans) 
+                    dates.add(String.join(" ",Arrays.copyOfRange(tokens,s.getStart(),s.getEnd())));
+                dateFinder.clearAdaptiveData();
+            }
         }
         if(dates.isEmpty()){
             Matcher m= Pattern.compile("(\\d{4}|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-zA-Z0-9\\s,-]*").matcher(text);
@@ -110,12 +129,14 @@ public class NLPUtils {
         }
         return dates;
     }
-    public static String findEmail(String text){       
+    public static String findEmail(String text){ 
+        if(text==null) return "";      
         Matcher matcher= Pattern.compile("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}").matcher(text);
         return matcher.find() ? matcher.group() :"";
     }
-    public static String findPhone(String text){        
-        Matcher matcher= Pattern.compile("(\\+\\d{1,3}[- ]?)?\\d{10,13}").matcher(text);
+    public static String findPhone(String text){  
+        if(text==null) return "";      
+        Matcher matcher= Pattern.compile("(?:\\+?\\d{1,3}[\\s-]?)?(?:\\(?\\d{2,4}\\)?[\\s-]?)?\\d{6,12}").matcher(text);
         return matcher.find() ? matcher.group() :"";
     }
     public static List<String> findSkills(String text){
@@ -124,7 +145,7 @@ public class NLPUtils {
         text= text.replace("/", " ").replace("-", " ");
         String skillsRegex="(?i)\\b(" +
         "java|python|c\\+\\+|c#|javascript|typescript|html|css|react|angular|node(?:\\.js)?|" +
-        "express|spring|django|flask|dotnet|php|ruby|go|swift|kotlin|" +
+        "express|spring|django|flask|dotnet|php|ruby|go|swift|kotlin|spring boot" +
         "sql|mysql|postgresql|mongodb|oracle|firebase|nosql|" +
         "aws|azure|gcp|docker|kubernetes|jenkins|git|github|jira|agile|scrum|" +
         "tensorflow|pytorch|machine learning|power bi|tableau|data analysis|powerbi|tableau|" +

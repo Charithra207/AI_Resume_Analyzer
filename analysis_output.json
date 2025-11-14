@@ -1,97 +1,64 @@
 [
   {
-    "Name": "Riya Sharma.",
-    "Email": "riya.sharma@gmail.com",
+    "Name": "Aarav Mehta",
+    "Email": "aarav.mehta@gmail.com",
     "Phone": "+919876543210",
     "Gender": "Not Specified",
     "Bias Indicators": [],
     "Skills": [
       "Java",
-      "Python",
-      "SQL",
-      "Spring"
+      "Spring",
+      "SQL"
     ],
-    "Job Role": "Software Engineer",
+    "Job Role": "Backend Developer",
     "Education": [
       {
-        "degree": "ME",
-        "university": "Unknown",
-        "year": "Unknown"
-      },
+        "degree": "BTECH in Computer Science",
+        "university": "IIT Delhi",
+        "year": "2020"
+      }
+    ],
+    "Experience": [
       {
-        "degree": "B.TECH",
-        "university": "B.Tech in Computer Science from IIT Delhi in 2021 with a CGPA of 8",
+        "company": "Infosys",
+        "role": "a Backend Developer",
+        "duration": "3 years",
+        "raw_duration_text": "Worked as a Backend Developer at Infosys for 3 years"
+      }
+    ],
+    "Total Experience": "3 years",
+    "Career Gap": 0,
+    "RawText": "Name: Aarav Mehta. Email: aarav.mehta@gmail.com. Phone: +91-9876543210. Skills: Java, Spring Boot, SQL. B.Tech in Computer Science from IIT Delhi, 2020. Worked as a Backend Developer at Infosys for 3 years.."
+  },
+  {
+    "Name": "Ishita Patel",
+    "Email": "ishita.patel@gmail.com",
+    "Phone": "+919823456789",
+    "Gender": "Not Specified",
+    "Bias Indicators": [],
+    "Skills": [
+      "Python",
+      "Machine Learning",
+      "TensorFlow"
+    ],
+    "Job Role": "Engineer",
+    "Education": [
+      {
+        "degree": "BE in Electronics and Communication",
+        "university": "NIT Surat",
         "year": "2021"
       }
     ],
     "Experience": [
       {
-        "company": "Education",
-        "role": "Software Engineer",
-        "duration": "3 years",
-        "raw_duration_text": "for 3 years"
-      },
-      {
-        "company": "Software Engineer",
-        "role": "Unknown Role",
-        "duration": "Unknown",
-        "raw_duration_text": ""
+        "company": "TCS",
+        "role": "Machine Learning Engineer",
+        "duration": "2 years",
+        "raw_duration_text": "Machine Learning Engineer at TCS for 2 years"
       }
     ],
-    "Total Experience": "3 years",
-    "Career Gap": 0
-  },
-  {
-    "Name": "Arjun Mehta.",
-    "Email": "arjun.mehta@yahoo.com",
-    "Phone": "+919123456789",
-    "Gender": "Not Specified",
-    "Bias Indicators": [],
-    "Skills": [
-      "Excel",
-      "Power BI",
-      "Python",
-      "Tableau"
-    ],
-    "Job Role": "Data Analyst",
-    "Education": [
-      {
-        "degree": "ME",
-        "university": "Unknown",
-        "year": "Unknown"
-      },
-      {
-        "degree": "ME",
-        "university": "Unknown",
-        "year": "Unknown"
-      },
-      {
-        "degree": "MBA",
-        "university": "B.Sc in Statistics from Mumbai University in 2022",
-        "year": "2022"
-      }
-    ],
-    "Experience": [
-      {
-        "company": "Education",
-        "role": "Data Analyst",
-        "duration": "Unknown",
-        "raw_duration_text": ""
-      },
-      {
-        "company": "Mumbai University",
-        "role": "Unknown Role",
-        "duration": "Unknown",
-        "raw_duration_text": ""
-      },
-      {
-        "company": "Data Analyst",
-        "role": "Unknown Role",
-        "duration": "Unknown",
-        "raw_duration_text": ""
-      }
-    ],
-    "Total Experience": "Unknown",
-    "Career Gap": 0
+    "Total Experience": "2 years",
+    "Career Gap": 0,
+    "RawText": "Name: Ishita Patel. Email: ishita.patel@gmail.com. Phone: +91-9823456789. Skills: Python, Machine Learning, TensorFlow. B.E. in Electronics and Communication from NIT Surat, 2021. Machine Learning Engineer at TCS for 2 years.."
   }
 ]

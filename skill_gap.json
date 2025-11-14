@@ -1,65 +1,47 @@
 [
   {
-    "name": "Riya Sharma.",
+    "name": "Aarav Mehta",
     "jobTitle": "Backend Developer",
     "missingSkills": [
       "Spring Boot"
     ],
     "candidateSkills": [
       "spring",
-      "python",
       "java",
       "sql"
     ]
   },
   {
-    "name": "Riya Sharma.",
+    "name": "Aarav Mehta",
     "jobTitle": "ML Engineer",
     "missingSkills": [
+      "Python",
       "Machine Learning",
       "TensorFlow",
       "Machine learning",
+      "Python",
       "TensorFlow"
     ],
     "candidateSkills": [
       "spring",
-      "python",
       "java",
       "sql"
     ]
   },
   {
-    "name": "Arjun Mehta.",
+    "name": "Ishita Patel",
     "jobTitle": "Backend Developer",
     "missingSkills": [
       "Java",
       "Spring Boot",
       "SQL",
       "Java",
-      "Spring",
-      "SQL"
+      "Spring"
     ],
     "candidateSkills": [
-      "excel",
       "python",
-      "tableau",
-      "power bi"
-    ]
-  },
-  {
-    "name": "Arjun Mehta.",
-    "jobTitle": "ML Engineer",
-    "missingSkills": [
-      "Machine Learning",
-      "TensorFlow",
-      "Machine learning",
-      "TensorFlow"
-    ],
-    "candidateSkills": [
-      "excel",
-      "python",
-      "tableau",
-      "power bi"
+      "tensorflow",
+      "machine learning"
     ]
   }
 ]

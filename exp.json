@@ -1,39 +1,24 @@
 [
   {
-    "Name": "Riya Sharma.",
+    "Name": "Aarav Mehta",
     "expTime": [
       {
-        "company": "Education Software Engineer",
-        "role": "Software Engineer",
-        "years": 0
-      },
-      {
-        "company": "Software Engineer Unknown Role",
-        "role": "Unknown Role",
+        "company": "Infosys",
+        "role": "Backend Developer",
         "years": 0
       }
     ],
     "Total Experience Years": "3 years"
   },
   {
-    "Name": "Arjun Mehta.",
+    "Name": "Ishita Patel",
     "expTime": [
       {
-        "company": "Education Data Analyst",
-        "role": "Data Analyst",
-        "years": 0
-      },
-      {
-        "company": "Mumbai University Unknown Role",
-        "role": "Unknown Role",
-        "years": 0
-      },
-      {
-        "company": "Data Analyst Unknown Role",
-        "role": "Unknown Role",
+        "company": "TCS",
+        "role": "Engineer",
         "years": 0
       }
     ],
-    "Total Experience Years": "Unknown"
+    "Total Experience Years": "2 years"
   }
 ]

@@ -30,13 +30,34 @@ public class JsonHandler {
                         StringBuilder sb= new StringBuilder();
                         if(obj.has("name")) sb.append("Name: ").append(obj.get("name").getAsString()).append(". ");
                         if(obj.has("email")) sb.append("Email: ").append(obj.get("email").getAsString()).append(". ");
-                        if(obj.has("phone")) sb.append("Phone: ").append(obj.get("phone").getAsString()).append(". ");
-                        if(obj.has("skills")) sb.append("Skills: ").append(obj.get("skills").toString()).append(". ");
-                        if(obj.has("education")) sb.append("Education: ").append(obj.get("education").getAsString()).append(". ");
-                        if(obj.has("experience")) sb.append("Experience: ").append(obj.get("experience").getAsString()).append(". ");
+                        if(obj.has("phone")) sb.append("Phone: ").append(obj.get("phone").getAsString()).append(". ");    
+                        if(obj.has("skills")){
+                            if(obj.get("skills").isJsonArray()){
+                                JsonArray sa = obj.getAsJsonArray("skills");
+                                StringBuilder sk = new StringBuilder();
+                                for(JsonElement se : sa){
+                                    if(sk.length()>0) sk.append(", ");
+                                    sk.append(se.getAsString());
+                                }
+                                if(sk.length()>0) sb.append("Skills: ").append(sk.toString()).append(". ");
+                            } 
+                            else
+                                sb.append("Skills: ").append(obj.get("skills").getAsString()).append(". ");
+                        }
+                        if(obj.has("education")) {
+                            String edu = obj.get("education").getAsString().trim();
+                            if(!edu.isEmpty()) sb.append(edu).append(". ");
+                        }
+
+                        if(obj.has("experience")) {
+                            String exp = obj.get("experience").getAsString().trim();
+                            if(!exp.isEmpty()) sb.append(exp).append(". ");
+                        }
+
                         if(sb.length()>0)
-                            resumeTexts.add(sb.toString().trim());
+                         resumeTexts.add(sb.toString().trim());
                     }
+
                 }            
             }
             else if(element.isJsonPrimitive())

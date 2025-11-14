@@ -4,8 +4,8 @@
     "title": "Backend Developer",
     "candidates": [
       {
-        "name": "Riya Sharma.",
-        "email": "riya.sharma@gmail.com",
+        "name": "Aarav Mehta",
+        "email": "aarav.mehta@gmail.com",
         "eligibility": "Moderately Eligible",
         "matchedSkills": [
           "Java",
@@ -16,11 +16,11 @@
         "experienceYears": 0.0,
         "careerGapYears": 0.0,
         "meetsExperience": false,
-        "scorePer": 56.67
+        "scorePer": 61.67
       },
       {
-        "name": "Arjun Mehta.",
-        "email": "arjun.mehta@yahoo.com",
+        "name": "Ishita Patel",
+        "email": "ishita.patel@gmail.com",
         "eligibility": "Low Fit",
         "matchedSkills": [],
         "matchedCount": 0,
@@ -37,32 +37,32 @@
     "title": "ML Engineer",
     "candidates": [
       {
-        "name": "Riya Sharma.",
-        "email": "riya.sharma@gmail.com",
-        "eligibility": "Low Fit",
+        "name": "Ishita Patel",
+        "email": "ishita.patel@gmail.com",
+        "eligibility": "Highly Eligible",
         "matchedSkills": [
-          "Python"
+          "Python",
+          "Machine Learning",
+          "TensorFlow"
         ],
-        "matchedCount": 1,
+        "matchedCount": 3,
         "requiredCount": 3,
         "experienceYears": 0.0,
         "careerGapYears": 0.0,
         "meetsExperience": false,
-        "scorePer": 28.33
+        "scorePer": 95.0
       },
       {
-        "name": "Arjun Mehta.",
-        "email": "arjun.mehta@yahoo.com",
+        "name": "Aarav Mehta",
+        "email": "aarav.mehta@gmail.com",
         "eligibility": "Low Fit",
-        "matchedSkills": [
-          "Python"
-        ],
-        "matchedCount": 1,
+        "matchedSkills": [],
+        "matchedCount": 0,
         "requiredCount": 3,
         "experienceYears": 0.0,
         "careerGapYears": 0.0,
         "meetsExperience": false,
-        "scorePer": 28.33
+        "scorePer": 0.0
       }
     ]
   }
