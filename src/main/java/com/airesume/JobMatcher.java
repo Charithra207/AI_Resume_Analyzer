@@ -5,6 +5,7 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.util.regex.Pattern;
 import java.util.*;
+import java.util.regex.Matcher;
 public class JobMatcher{
     private static final double PENALTY_MY=5.0;
     private static final double PENALTY_GY=3.0;
@@ -57,8 +58,9 @@ public class JobMatcher{
         else if(skillsObj!=null){
             candiSk.add(skillsObj.toString().trim().toLowerCase());
         }
-        candiSk.addAll(NLPUtils.findSkills(resumeText).stream().map(String::toLowerCase).toList());        
-        double expYears=parseNumber(resume.get("Total Experience Years"));
+        List<String> nlpFound = NLPUtils.findSkills(resumeText);
+        for(String s: nlpFound) candiSk.add(s.toLowerCase());        
+        double expYears=parseExperienceValue(resume.get("Total Experience Years"), resume.get("Total Experience"), resume.get("Experience Years"), resume.get("Experience"));
         double gap=parseNumber(resume.get("Career Gap"));
         if(!resume.containsKey("Total Experience Years"))
             System.out.println("Missing experience for: "+name);
@@ -72,19 +74,26 @@ public class JobMatcher{
                 continue;
             String nreq=req.toLowerCase().trim();
             for(String skill:candiSk){
-                if(skill.equalsIgnoreCase(nreq) || skill.matches(".*\\b"+Pattern.quote(nreq)+"\\b.*")){
-                    matched.add(req);
+                if(skill.equals(nreq) || Pattern.compile("\\b"+Pattern.quote(nreq)+"\\b").matcher(skill).find()){
+                    matched.add(nreq);
                     break;
                 }
             }
         }
-        int mCount=matched.size();
-        double baseScore= reqCount==0?0.0:((double)mCount/reqCount)*100.0;
-        List<String> nlpRoles= NLPUtils.findJobTitles(resumeText);
-        if(nlpRoles.stream().anyMatch(r -> r.equalsIgnoreCase(job.title))) 
-            baseScore+= 5.0;
-        double penaltyExp=0.0;
-        boolean meetsExp=true;
+        int mCount= matched.size();
+        double baseScore= reqCount==0 ? 0.0 : ((double) mCount/reqCount)*100.0;
+        List<String> nlpRoles = NLPUtils.findJobTitles(resumeText);
+        if(job.title!=null){
+            String cleanJobTitle= normalizeTitle(job.title);
+            for(String r: nlpRoles){
+                if(normalizeTitle(r).equalsIgnoreCase(cleanJobTitle)){
+                    baseScore+= 5.0;
+                    break;
+                }
+            }
+        }
+        double penaltyExp= 0.0;
+        boolean meetsExp= true;
         if(job.minExperience>0 && expYears<job.minExperience){
             double gapYears=job.minExperience-expYears;
             penaltyExp=Math.min(30.0,gapYears*PENALTY_MY);
@@ -99,8 +108,8 @@ public class JobMatcher{
         res.matchedSkills=new ArrayList<>(matched);
         res.matchedCount=mCount;
         res.requiredCount=reqCount;
-        res.experienceYears=expYears;
-        res.careerGapYears=gap;
+        res.experienceYears=Math.round(expYears*100.0)/100.0;
+        res.careerGapYears=Math.round(gap*100.0)/100.0;
         res.meetsExperience=meetsExp;
         res.scorePer=Math.round(score*100.0)/100.0;
         if(res.scorePer >=80) 
@@ -111,7 +120,38 @@ public class JobMatcher{
             res.eligibility= "Low Fit";
         return res;
     }
-
+    private static double parseExperienceValue(Object... candidates){        
+        for(Object o: candidates){
+            if(o==null) continue;
+            if(o instanceof Number) return ((Number)o).doubleValue();
+            if(o instanceof String){
+                double v= parseExperienceString((String)o);
+                if(v>0.0) return v;
+            }
+        }
+        return 0.0;
+    }
+    private static double parseExperienceString(String s){
+        if(s==null) return 0.0;
+        String text= s.trim().toLowerCase();        
+        try {            
+            Pattern pYears= Pattern.compile("(\\d+(?:\\.\\d+)?)\\s*(?:years|year|yrs|yr|y)");
+            Matcher my= pYears.matcher(text);
+            double years= 0.0;
+            if(my.find()) years+= Double.parseDouble(my.group(1));
+            Pattern pMonths= Pattern.compile("(\\d+(?:\\.\\d+)?)\\s*(?:months|month|mos|mo|m)");
+            Matcher mm= pMonths.matcher(text);
+            if(mm.find()) years+= Double.parseDouble(mm.group(1))/12.0;
+            if(years==0.0){
+                Pattern pNum= Pattern.compile("^(\\d+(?:\\.\\d+)?)");
+                Matcher mnum= pNum.matcher(text);
+                if(mnum.find()) years= Double.parseDouble(mnum.group(1));
+            }
+            return Math.round(years*100.0)/100.0;
+        } catch(Exception e){
+            return 0.0;
+        }
+    }
     private static List<Map<String, Object>> readResumes(String filePath){
         Gson gson=new GsonBuilder().create();
         try(FileReader reader=new FileReader(filePath)){
@@ -161,6 +201,12 @@ public class JobMatcher{
         } catch (Exception ex) {
             return 0.0;
         }
+    }
+    private static String normalizeTitle(String t){
+        if(t==null) return "";
+        String s= t.trim().toLowerCase();        
+        s= s.replaceAll("^(a\\s+|an\\s+|the\\s+)", "");
+        return s;
     }
     static class Job {
         String id;

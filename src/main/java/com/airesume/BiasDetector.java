@@ -4,7 +4,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.*;
-
+import java.util.regex.Pattern;
 public class BiasDetector{
     private static final List<String> biasWords = Arrays.asList("young","energetic","dominant","aggressive","female","male","girls only","boys only","youthful","mature","manpower");
     public static void main(String[] args){
@@ -15,8 +15,8 @@ public class BiasDetector{
         List<Map<String,Object>> jobs = readFile(jdFile);
         if(jobs != null){
             for(Map<String,Object> job:jobs){
-                String desc= job.getOrDefault("description","").toString();
-                if(desc==null || desc.isEmpty()) continue;
+                String desc= safeString(job.get("description"));
+                if(desc.isEmpty()) continue;
                 String normDesc= NLPUtils.normalizeText(desc);
                 List<String>foundBias = findBias(normDesc);
                 if(!foundBias.isEmpty()){
@@ -33,8 +33,8 @@ public class BiasDetector{
         List<Map<String,Object>> resumes= readFile(analysisFile);
         if(resumes != null){
             for(Map<String,Object> res:resumes){
-                String summary= res.getOrDefault("summary", "").toString();
-                if(summary==null || summary.isEmpty()) 
+                String summary= safeString(res.getOrDefault("summary", res.get("RawText")));
+                if(summary.isEmpty()) 
                     continue;
                 String normSummary= NLPUtils.normalizeText(summary);
                 List<String>foundBias = findBias(normSummary);
@@ -55,12 +55,13 @@ public class BiasDetector{
         List<String>found = new ArrayList<>();
         String lowerText= text.toLowerCase();
         for(String word:biasWords){
-            String w= word.toLowerCase();
-            if(lowerText.contains(" "+w+" ") || lowerText.startsWith(w+" ") || lowerText.endsWith(" "+w) || lowerText.equals(w))
-                found.add(word);
+            String w= word.toLowerCase().trim();
+            String pattern= "\\b"+ Pattern.quote(word) +"\\b";
+            if(Pattern.compile(pattern,Pattern.CASE_INSENSITIVE).matcher(lowerText).find())
+                found.add(w);
         }
-        return found;
-    }
+        return new ArrayList<>(found);
+    }    
     private static String severityLevel(int count){
         if(count>5) 
             return "Critical";
@@ -75,11 +76,12 @@ public class BiasDetector{
         try(Reader reader =new FileReader(filename)){
             Gson gson= new GsonBuilder().create();
             Type listType =new TypeToken<List<Map<String,Object>>>(){}.getType();
-            return gson.fromJson(reader,listType);
+            List<Map<String,Object>> list= gson.fromJson(reader,listType);
+            return list==null ? Collections.emptyList() : list;
         } 
         catch(Exception e){
             System.out.println("Could not read "+filename+": "+e.getMessage());
-            return null;
+            return Collections.emptyList();
         }
     }
     private static void writeFile(String filename,List<Map<String,Object>>data){
@@ -90,5 +92,8 @@ public class BiasDetector{
         catch(Exception e){
             System.out.println("Could not write "+filename+": "+e.getMessage());
         }
+    }
+    private static String safeString(Object o){
+        return o==null ? "": o.toString();
     }
 }

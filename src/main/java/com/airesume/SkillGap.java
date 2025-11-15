@@ -18,7 +18,7 @@ public class SkillGap{
                         cdSkills.add(s.getAsString().toLowerCase());
                 }
                 String resumeText= res.has("RawText") ? res.get("RawText").getAsString() : "";
-                cdSkills.addAll(NLPUtils.findSkills(resumeText).stream().map(String::toLowerCase).collect(Collectors.toList()));                  
+                cdSkills.addAll(NLPUtils.findSkills(resumeText).stream().map(String::toLowerCase).collect(Collectors.toList()));                
                 for(JsonElement j:jobs){
                     JsonObject job= j.getAsJsonObject();
                     String jobTitle= job.has("title") ?job.get("title").getAsString():job.has("Job title") ? job.get("Job title").getAsString() :"Unknown";

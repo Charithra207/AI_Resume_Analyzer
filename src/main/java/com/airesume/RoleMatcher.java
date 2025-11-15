@@ -19,8 +19,8 @@ public class RoleMatcher {
         }
         List<Map<String,Object>>matches =new ArrayList<>();
         for(Map<String,Object> cd:analysisData){
-            String name= cd.containsKey("Name")? cd.get("Name").toString(): cd.containsKey("name") ?cd.get("name").toString():"Unknown";
-            String resumeText= cd.getOrDefault("RawText","").toString();            
+            String name= safe(cd.getOrDefault("Name",cd.getOrDefault("name", "Unknown")));
+            String resumeText= safe(cd.getOrDefault("RawText", ""));           
             Set<String> cdSkills = new HashSet<>(getList(cd.get("Skills")));
             cdSkills.addAll(NLPUtils.findSkills(resumeText).stream().map(String::toLowerCase).collect(Collectors.toSet()));
             double bestMatch= 0.0;
@@ -30,8 +30,13 @@ public class RoleMatcher {
                 List<String> reqSkills= getList(job.get("requiredSkills"));
                 double matchPer= calMatch(new ArrayList<>(cdSkills),reqSkills);
                 List<String> nlpRoles = NLPUtils.findJobTitles(resumeText);
-                if(nlpRoles.stream().anyMatch(r -> r.equalsIgnoreCase(title)))
-                 matchPer += 5.0;
+                String cleanTitle= normalizeTitle(title);                
+                for(String r: nlpRoles){
+                    if(normalizeTitle(r).equalsIgnoreCase(cleanTitle)){
+                        matchPer+= 5.0;                        
+                        break;
+                    }
+                }
                 if(matchPer > bestMatch){
                     bestMatch= matchPer;
                     bestRole= title;
@@ -46,8 +51,7 @@ public class RoleMatcher {
         writeFile(opFile,matches);
         System.out.println("Job role matching completed."+opFile);
     }
-    private static List<String> getList(Object... posLists){
-        for(Object obj:posLists){
+    private static List<String> getList(Object obj){        
             if(obj instanceof List){
                 List<?>list = (List<?>)obj;
                 List<String>result =new ArrayList<>();
@@ -55,17 +59,20 @@ public class RoleMatcher {
                     if(item != null)
                         result.add(item.toString().toLowerCase());
                 return result;
-            }
-        }
-        return new ArrayList<>();
-    }
+            }        
+        return new ArrayList<>();   
+    } 
     private static double calMatch(List<String>cdSkills ,List<String>reqSkills){
-        if(reqSkills.isEmpty() || cdSkills.isEmpty()) 
+        if(reqSkills==null || reqSkills.isEmpty() || cdSkills==null || cdSkills.isEmpty()) 
             return 0.0;
+        Set<String> normalizedCd= new HashSet<>();
+        for(String s: cdSkills) normalizedCd.add(s.toLowerCase());
         int cmn= 0;
         for(String skill:reqSkills){
-            for(String sk:cdSkills){
-                if(sk.equalsIgnoreCase(skill) || Pattern.compile("\\b"+Pattern.quote(skill)+"\\b").matcher(sk).find()){
+            if(skill==null) continue;
+            String nSkill= skill.toLowerCase();
+            for(String sk: normalizedCd){
+                if(sk.equals(nSkill) || Pattern.compile("\\b"+Pattern.quote(nSkill)+"\\b").matcher(sk).find()){
                     cmn++;
                     break;
                 }
@@ -92,5 +99,16 @@ public class RoleMatcher {
         catch(Exception e){
             System.out.println("Could not write "+filename+": "+e.getMessage());
         }
+    }
+    private static String normalizeTitle(String t){
+        if(t==null) return "";
+        String s= t.trim().toLowerCase();
+        s= s.replaceAll("[^a-z0-9\\s]", " "); 
+        s= s.replaceAll("\\s+", " ").trim();
+        s= s.replaceAll("^(a |an |the )", ""); 
+        return s;
+    }
+    private static String safe(Object o){
+        return o==null ? "" :o.toString();
     }
 }

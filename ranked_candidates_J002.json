@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "name": "Ishita Patel",
+    "email": "ishita.patel@gmail.com",
+    "matchedSkills": [
+      "python",
+      "machine learning",
+      "tensorflow"
+    ],
+    "matchedCount": 3,
+    "requiredCount": 3,
+    "experienceYears": 2.0,
+    "careerGapYears": 0.0,
+    "meetsExperience": true,
+    "scorePer": 100.0,
+    "combinedScore": 86.32455532033676,
+    "semanticScore": 31.62,
+    "skillOverlap": 100.0,
+    "rank": 1,
+    "tc": 1
+  }
+]

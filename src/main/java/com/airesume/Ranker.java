@@ -138,7 +138,7 @@ public class Ranker{
         return map;
     }
     private static double calculateSkillOverlap(List<String> resumeSkills,List<String> jdSkills){
-        if(jdSkills.isEmpty()) 
+        if(jdSkills==null ||jdSkills.isEmpty()) 
             return 0.0;
         Set<String> rs= new HashSet<>();
         for(String s:resumeSkills) 

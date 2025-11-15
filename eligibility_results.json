@@ -8,15 +8,15 @@
         "email": "aarav.mehta@gmail.com",
         "eligibility": "Moderately Eligible",
         "matchedSkills": [
-          "Java",
-          "SQL"
+          "java",
+          "sql"
         ],
         "matchedCount": 2,
         "requiredCount": 3,
-        "experienceYears": 0.0,
+        "experienceYears": 3.0,
         "careerGapYears": 0.0,
-        "meetsExperience": false,
-        "scorePer": 61.67
+        "meetsExperience": true,
+        "scorePer": 71.67
       },
       {
         "name": "Ishita Patel",
@@ -25,9 +25,9 @@
         "matchedSkills": [],
         "matchedCount": 0,
         "requiredCount": 3,
-        "experienceYears": 0.0,
+        "experienceYears": 2.0,
         "careerGapYears": 0.0,
-        "meetsExperience": false,
+        "meetsExperience": true,
         "scorePer": 0.0
       }
     ]
@@ -41,16 +41,16 @@
         "email": "ishita.patel@gmail.com",
         "eligibility": "Highly Eligible",
         "matchedSkills": [
-          "Python",
-          "Machine Learning",
-          "TensorFlow"
+          "python",
+          "machine learning",
+          "tensorflow"
         ],
         "matchedCount": 3,
         "requiredCount": 3,
-        "experienceYears": 0.0,
+        "experienceYears": 2.0,
         "careerGapYears": 0.0,
-        "meetsExperience": false,
-        "scorePer": 95.0
+        "meetsExperience": true,
+        "scorePer": 100.0
       },
       {
         "name": "Aarav Mehta",
@@ -59,9 +59,9 @@
         "matchedSkills": [],
         "matchedCount": 0,
         "requiredCount": 3,
-        "experienceYears": 0.0,
+        "experienceYears": 3.0,
         "careerGapYears": 0.0,
-        "meetsExperience": false,
+        "meetsExperience": true,
         "scorePer": 0.0
       }
     ]

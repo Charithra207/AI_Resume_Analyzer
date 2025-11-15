@@ -1,1 +1,21 @@
-[]
+[
+  {
+    "name": "Aarav Mehta",
+    "email": "aarav.mehta@gmail.com",
+    "matchedSkills": [
+      "java",
+      "sql"
+    ],
+    "matchedCount": 2,
+    "requiredCount": 3,
+    "experienceYears": 3.0,
+    "careerGapYears": 0.0,
+    "meetsExperience": true,
+    "scorePer": 71.67,
+    "combinedScore": 69.4189945180064,
+    "semanticScore": 39.17,
+    "skillOverlap": 100.0,
+    "rank": 1,
+    "tc": 1
+  }
+]
